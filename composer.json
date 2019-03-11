@@ -23,7 +23,7 @@
     "contao/core-bundle": "^4.4",
     "codefog/contao-haste": "^4.23",
     "markocupic/notification-center-default-email-bundle": "^1.0",
-    "terminal42/contao-notification_center": "^1.5"
+    "terminal42/notification_center": "^1.5"
   },
   "autoload": {
     "psr-4": {
