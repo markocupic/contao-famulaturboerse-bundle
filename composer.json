@@ -1,0 +1,45 @@
+{
+  "name": "markocupic/contao-famulaturboerse-bundle",
+  "description": "Contao famulaturboerse modules for https://degam-famulaturboerse.de.",
+  "keywords": [
+    "contao",
+    "famulaturboerse"
+  ],
+  "type": "contao-module",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Marko Cupic",
+      "email": "m.cupic@gmx.ch",
+      "homepage": "https://github.com/markocupic",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/markocupic/contao-famulaturboerse-bundle/issues",
+    "source": "https://github.com/markocupic/contao-famulaturboerse-bundle"
+  },
+  "require": {
+    "contao/core-bundle": "^4.4",
+    "codefog/contao-haste": "^4.23",
+    "markocupic/notification-center-default-email-bundle": "^1.0",
+    "terminal42/contao-notification_center": "^1.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Markocupic\\ContaoFamulaturboerseBundle\\": "src/"
+    },
+    "classmap": [
+      "src/Resources/contao"
+    ],
+    "exclude-from-classmap": [
+      "src/Resources/contao/config",
+      "src/Resources/contao/dca",
+      "src/Resources/contao/languages",
+      "src/Resources/contao/templates"
+    ]
+  },
+  "extra": {
+    "contao-manager-plugin": "Markocupic\\ContaoFamulaturboerseBundle\\ContaoManager\\Plugin"
+  }
+}

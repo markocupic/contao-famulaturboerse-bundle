@@ -1,0 +1,65 @@
+<!-- indexer::stop -->
+<div class="<?= $this->class ?> block"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
+
+    <?php if ($this->headline): ?>
+    <h1>Angebot Formular</h1>
+    <<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
+    <?php endif; ?>
+
+    <?php if ($this->hasMessages): ?>
+    <?php foreach($this->messages as $message): ?>
+    <p class="tl_confirm message-box alert alert-info"><?= $message ?></p>
+    <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php if($this->allowListing): ?>
+    <div class="angebotDashboardListe block">
+        <?php if($this->countRows): ?>
+        <table class="table">
+            <thead>
+            <tr class="row-item">
+                <th class="angebot-date">Erstellungsdatum</th>
+                <th class="angebot-kurzbeschreibung">Kurzbeschreibung</th>
+                <th class="angebot-buttons"></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <?php foreach($this->rows as $row): ?>
+            <tr class="row-item">
+                <td class="angebot-date"><?= \Contao\Date::parse('d.m.Y', $row['date']) ?></td>
+                <td class="angebot-kurzbeschreibung">
+                    <?php if(!$row['published']): ?><span class="unpublishedItem">Nicht veröffentlicht!</span><?php endif; ?>
+                    <?= $row['anform_kurzbeschreibung'] ?>
+                </td>
+                <td class="angebot-buttons">
+                    <?php if($row['editItemHref']): ?>
+                    <a href="<?= $row['editItemHref'] ?>" class="btn edit-item-href" title="bearbeiten">bearbeiten</a>
+                    <?php endif; ?>
+
+                    <?php if($row['readerItemHref']): ?>
+                    <a href="<?= $row['readerItemHref'] ?>" class="btn edit-detail-href" title="bearbeiten">Vorschau</a>
+                    <?php endif; ?>
+
+                    <?php if($row['deleteItemHref']): ?>
+                    <a href="<?= $row['deleteItemHref'] ?>" class="btn delete-item-href" title="Datensatz löschen">Löschen</a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+        <?php else: ?>
+        <p>Noch keine Einträge vorhanden</p>
+        <?php endif; ?>
+    </div>
+
+    <?php if($this->createNewHref): ?>
+        <div class="angebotDashboardListeFooter">
+            <a href="<?=  $this->Template->createNewHref ?>" title="Neue Angebot erstellen" class="btn">Neue Angebot erstellen</a>
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+</div>
+<!-- indexer::continue -->

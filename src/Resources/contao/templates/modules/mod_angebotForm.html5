@@ -1,0 +1,416 @@
+<!-- indexer::stop -->
+<div class="<?= $this->class ?> block"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
+
+    <?php if ($this->headline): ?>
+    <h1>Angebot Formular</h1>
+    <<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
+    <?php endif; ?>
+
+    <?php if ($this->hasMessages): ?>
+    <?php foreach($this->messages as $message): ?>
+    <p class="tl_confirm message-box alert alert-info"><?= $message ?></p>
+    <?php endforeach; ?>
+    <?php endif; ?>
+
+    <?php if($this->form): ?>
+    <div class="hasteform_<?= $this->form->getFormId() ?> block">
+
+        <form id="<?= $this->form->getFormId() ?>" novalidate action="<?= $this->form->getFormAction() ?>" method="<?= $this->form->getMethod() ?>" enctype="<?= $this->form->getEnctype() ?>">
+            <div class="formbody">
+                <?php if ($this->form->hasFormField('FORM_SUBMIT')): ?>
+                <?= $this->form->getWidget('FORM_SUBMIT')->parse(); ?>
+                <?php endif; ?>
+
+                <?php if ($this->form->hasFormField('REQUEST_TOKEN')): ?>
+                <?= $this->form->getWidget('REQUEST_TOKEN')->parse(); ?>
+                <?php endif; ?>
+
+                <?php $field = 'featured'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'date'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'published'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'confirmationSent'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'confirmationDate'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'form'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'be_notes'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'fd_member'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'fd_user'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'fd_member_group'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'fd_user_group'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'alias'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_kurzbeschreibung'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_zusatzbezeichnung'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_zusatztext'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_richtung'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_schwerpunkte'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_angebot'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_erwartung'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_anforderungen'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_kvbezirk'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_hausbesuch'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_dauer'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_zeitraum'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_art'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_bildung'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_fahrt'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_nacht'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_verkehr'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_praxis'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_ansprechpartner'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_strasse'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_plz'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_stadt'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_bundesland'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_telefon'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_fax'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_email'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_url'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'anform_web'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+
+
+
+                <?php $field = 'captcha'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+                <?php $field = 'submit'; ?>
+                <?php if ($this->form->hasFormField($field)): ?>
+                <div data-input="<?= $field ?>">
+                    <div class="widget-<?= $field ?>">
+                        <?= $this->form->getWidget($field)->parse(); ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
+
+            </div>
+        </form>
+    </div>
+    <?php endif; ?>
+
+</div>
+<!-- indexer::continue -->

@@ -1,0 +1,23 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Marko
+ * Date: 09.03.2019
+ * Time: 11:31
+ */
+
+
+// Legends
+$GLOBALS['TL_LANG']['tl_module']['form_legend'] = 'Formular-Einstellungen';
+
+// Fields
+
+$GLOBALS['TL_LANG']['tl_module']['formAngebotJumpTo'] = array('Seite mit dem Angebotsformular-Modul','Wählen Sie die Seite mit dem Angebotsformular-Modul aus.');
+$GLOBALS['TL_LANG']['tl_module']['readerJumpTo'] = array('Seite mit dem Angebots-Reader','Wählen Sie die Seite mit dem Angebots-Reader-Modul aus.');
+$GLOBALS['TL_LANG']['tl_module']['notifyOnFamulaturAngebotInserts'] = array('Benachrichtigung bei Inserts aktivieren','Versenden Sie bei Inserts E-Mails.');
+$GLOBALS['TL_LANG']['tl_module']['insertFamulaturAngebotNotification'] = array('Benachrichtigung auswählen','Wählen Sie eine Benachrichtigung aus.');
+$GLOBALS['TL_LANG']['tl_module']['formFields'] = array('Anzuzeigende Felder wählen','Wählen Sie die anzuzeigenden Felder aus.');
+$GLOBALS['TL_LANG']['tl_module']['autoPublishOnInsert'] = array('Angebote beim Erstellen automatisch veröffentlichen', 'Entscheiden Sie, ob die Angebote beim Absenden des Formulars automatisch veröffentlicht werden sollen.');
+
+
+
