@@ -1,4 +1,4 @@
-# Contao Famulaturbörse bundle
+# Contao Famulaturbörse Bundle
 Das Bundle enthält die Frontend und Backend-Module für https://degam-famulaturboerse.de
 
 ## Installation
@@ -6,7 +6,7 @@ Das Bundle enthält die Frontend und Backend-Module für https://degam-famulatur
 ### Opengeo Datenbank
 Vor der Installation sollte die opengeo Datenbank auf dem Server installiert sein. Die Datei findest sich in src/Resources/contao. Die Datenbank wird für die Umkreissuche benötigt.
 
-### Plugin INstallation
+### Plugin Installation
 Danach über den Manager oder die Konsole das Bundle installieren.
 ´´´
 composer require markocupic/contao-famulaturboerse-bundle
