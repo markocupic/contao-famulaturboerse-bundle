@@ -26,3 +26,5 @@ class FamulaturAngebotModel extends Model
 
 
 }
+
+class_alias(FamulaturAngebotModel::class, 'FamulaturAngebotModel');

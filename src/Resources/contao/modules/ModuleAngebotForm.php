@@ -429,4 +429,4 @@ class ModuleAngebotForm extends Module
     }
 }
 
-//class_alias(ModuleAngebotForm::class, 'ModuleAngebotForm');
+class_alias(ModuleAngebotForm::class, 'ModuleAngebotForm');

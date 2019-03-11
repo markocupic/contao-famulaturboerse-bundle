@@ -266,4 +266,4 @@ class ModuleAngebotDashboard extends Module
     }
 }
 
-//class_alias(ModuleAngebotDashboard::class, 'ModuleAngebotDashboard');
+class_alias(ModuleAngebotDashboard::class, 'ModuleAngebotDashboard');

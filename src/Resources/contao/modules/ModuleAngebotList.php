@@ -436,4 +436,4 @@ class ModuleAngebotList extends Module
 
 }
 
-//class_alias(ModuleAngebotList::class, 'ModuleAngebotList');
+class_alias(ModuleAngebotList::class, 'ModuleAngebotList');

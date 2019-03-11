@@ -123,4 +123,4 @@ class ModuleAngebotReader extends Module
 
 }
 
-//class_alias(ModuleAngebotReader::class, 'ModuleAngebotReader');
+class_alias(ModuleAngebotReader::class, 'ModuleAngebotReader');
