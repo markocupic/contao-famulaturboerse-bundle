@@ -100,15 +100,15 @@ class InitializeSystem
      */
     public function insertDefaultNotification()
     {
-        if (Database::getInstance()->tableExists('tl_nc_notification'))
+        if (TL_MODE === 'BE' && Database::getInstance()->tableExists('tl_nc_notification'))
         {
             // Create default notification
-            $objNotification = Notification::findOneByType('default_email');
+            $objNotification = Notification::findOneByType('notification_on_famulatur_insert');
             if ($objNotification === null)
             {
                 $set = array(
-                    'type'   => 'default_email',
-                    'title'  => 'Standard E-Mail (nur mit Platzhaltern)',
+                    'type'   => 'notification_on_famulatur_insert',
+                    'title'  => 'Benachrichtigung bei INSERTS in der Famulaturboerse',
                     'tstamp' => time()
                 );
                 $oInsertStmt = Database::getInstance()->prepare('INSERT into tl_nc_notification %s')->set($set)->execute();
@@ -116,7 +116,7 @@ class InitializeSystem
                 $set = array(
                     'pid'            => $oInsertStmt->insertId,
                     'tstamp'         => time(),
-                    'title'          => 'Standard Nachricht',
+                    'title'          => 'Benachrichtigung bei INSERTS in die Famulaturboerse (vorkonfiguriert)',
                     'gateway'        => 1,
                     'gateway_type'   => 'email',
                     'email_priority' => 3,
@@ -131,15 +131,7 @@ class InitializeSystem
                     'gateway_type'         => 'email',
                     'language'             => 'de',
                     'fallback'             => '1',
-                    'recipients'           => '##send_to##',
-                    'attachment_tokens'    => '#attachment_tokens##',
-                    'email_sender_name'    => '##email_sender_name##',
-                    'email_sender_address' => '##email_sender_email##',
-                    'email_recipient_cc'   => '##recipient_cc##',
-                    'email_recipient_bcc'  => '##recipient_bcc##',
-                    'email_replyTo'        => '##reply_to##',
-                    'email_subject'        => '##email_subject##',
-                    'email_mode'           => 'extOnly',
+                    'email_mode'           => 'textOnly',
                     'email_text'           => '##email_text##'
                 );
                 Database::getInstance()->prepare('INSERT into tl_nc_language %s')->set($set)->execute();

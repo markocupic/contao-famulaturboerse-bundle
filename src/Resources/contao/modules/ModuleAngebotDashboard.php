@@ -108,7 +108,7 @@ class ModuleAngebotDashboard extends Module
         else
         {
             $this->allowListing = false;
-            $this->arrMessages[] = $GLOBALS['TL_LANG']['MISC']['notAllowed'];
+            $this->arrMessages[] = $GLOBALS['TL_LANG']['MISC']['notAllowedUsingFamulaturDashboard'];
         }
 
         return parent::generate();
@@ -146,7 +146,7 @@ class ModuleAngebotDashboard extends Module
                     $objPageDelete = PageModel::findWithDetails($objPage->id);
                     if ($objPageDelete !== null)
                     {
-                        $href = $objPageDelete->getAbsoluteUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s').'?action=delete';
+                        $href = $objPageDelete->getAbsoluteUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s') . '?action=delete';
                         $arrRow['deleteItemHref'] = sprintf($href, $arrRow['alias']);
                     }
                 }
@@ -170,7 +170,7 @@ class ModuleAngebotDashboard extends Module
                 $objFormPage = PageModel::findWithDetails($this->formAngebotJumpTo);
                 if ($objFormPage !== null)
                 {
-                    $this->Template->createNewHref  = $objFormPage->getAbsoluteUrl();
+                    $this->Template->createNewHref = $objFormPage->getAbsoluteUrl();
                 }
             }
 

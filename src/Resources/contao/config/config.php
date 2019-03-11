@@ -50,21 +50,21 @@ $GLOBALS['TL_HOOKS']['onUpdateFamulaturAngebot'][] = array('Markocupic\Famulatur
 /**
  * Notification_center
  */
-$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['defaultemail'] = array
+$GLOBALS['NOTIFICATION_CENTER']['NOTIFICATION_TYPE']['famulatur'] = array
 (
     // Type
-    'default_email' => array
+    'notification_on_famulatur_insert' => array
     (
         // Field in tl_nc_language
-        'email_sender_name'    => array('email_sender_name'),
-        'email_sender_address' => array('email_sender_email'),
-        'recipients'           => array('send_to', 'anform_*'),
-        'email_replyTo'        => array('reply_to'),
-        'email_recipient_cc'   => array('recipient_cc', 'anform_*'),
-        'email_recipient_bcc'  => array('recipient_bcc', 'anform_*'),
-        'email_subject'        => array('email_subject', 'anform_*'),
+        'email_sender_name'    => array(),
+        'email_sender_address' => array(),
+        'recipients'           => array('anform_*'),
+        'email_replyTo'        => array(),
+        'email_recipient_cc'   => array('anform_*'),
+        'email_recipient_bcc'  => array('anform_*'),
+        'email_subject'        => array('anform_*'),
         'email_text'           => array('email_text', 'anform_*', 'link_backend'),
         'email_html'           => array('email_html', 'anform_*', 'link_backend'),
-        'attachment_tokens'    => array('attachment_tokens')
+        'attachment_tokens'    => array()
     )
 );

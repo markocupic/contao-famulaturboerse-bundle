@@ -50,11 +50,6 @@ class UpdateFamulaturAngebot
 
                     // Set token array
                     $arrTokens = array(
-                        'email_sender_name'  => '',
-                        'email_sender_email' => '',
-                        'reply_to'           => '',
-                        'email_subject'      => '',
-                        'attachment_tokens'  => '',
                         'link_backend'       => sprintf('%s/contao?do=famulatur_angebotn&act=edit&id=%s', Environment::get('url'), $objAngebotModel->id),
                     );
 

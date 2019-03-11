@@ -10,5 +10,5 @@
 
 
 
-$GLOBALS['TL_LANG']['tl_nc_notification']['type']['defaultemail'] = 'Standard E-Mail';
-$GLOBALS['TL_LANG']['tl_nc_notification']['type']['default_email'] = array('Standard E-Mail', 'Sandard E-Mail');
+$GLOBALS['TL_LANG']['tl_nc_notification']['type']['famulatur'] = 'Famulaturbörse';
+$GLOBALS['TL_LANG']['tl_nc_notification']['type']['notification_on_famulatur_insert'] = array('Benachrichtigung bei Inserts in die Famulaturbörse', 'Benachrichtigung bei Inserts in die Famulaturbörse (vorkonfiguriert)');
