@@ -10,9 +10,11 @@ Vor der Installation sollte die opengeo Datenbank auf dem Server installiert sei
 Danach über den Manager oder die Konsole das Bundle installieren.
 ```php
 composer require markocupic/contao-famulaturboerse-bundle
-´´´
+```
 Jetzt die Datenbak updaten.
+
 Das Plugin installiert zusätzlich die Erweiterungen:
+
 ```php
 "require": {
   "contao/core-bundle": "^4.4",
@@ -20,9 +22,10 @@ Das Plugin installiert zusätzlich die Erweiterungen:
   "markocupic/notification-center-default-email-bundle": "^1.0",
   "terminal42/notification_center": "^1.5"
 },
-´´´
+```
+
 ### Opengeo Einstellungen
-IN den Backend Einstellungen müssen die Datenbankverbindungsoptionen gesetzt werden.
+In den Backend Einstellungen müssen die Datenbankverbindungsoptionen gesetzt werden.
 Datenbankuser, Passwort, Port, Datenbankname
 
 ### Seiten/Frontend-Module anlegen
