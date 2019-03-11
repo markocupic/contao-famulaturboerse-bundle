@@ -17,9 +17,7 @@ Das Plugin installiert zusätzlich die Erweiterungen:
 
 ```php
 "require": {
-  "contao/core-bundle": "^4.4",
   "codefog/contao-haste": "^4.23",
-  "markocupic/notification-center-default-email-bundle": "^1.0",
   "terminal42/notification_center": "^1.5"
 },
 ```
