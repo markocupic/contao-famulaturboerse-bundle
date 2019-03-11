@@ -60,8 +60,6 @@ class ModuleAngebotDashboard extends Module
     protected $allowListing = true;
 
     /**
-     * Display a login form
-     *
      * @return string
      */
     public function generate()
@@ -114,7 +112,9 @@ class ModuleAngebotDashboard extends Module
         return parent::generate();
     }
 
-
+    /**
+     *
+     */
     protected function compile()
     {
         global $objPage;
@@ -130,7 +130,7 @@ class ModuleAngebotDashboard extends Module
             {
                 $arrRow = $objListing->row();
 
-                // Get the jumpToFormHref URL
+                // Get the jumpToFormHref
                 if (isset($this->formAngebotJumpTo))
                 {
                     $objFormPage = PageModel::findWithDetails($this->formAngebotJumpTo);
@@ -140,7 +140,7 @@ class ModuleAngebotDashboard extends Module
                         $arrRow['editItemHref'] = sprintf($href, $arrRow['alias']);
                     }
                 }
-                // Get the deleteItemHref URL
+                // Get the deleteItemHref
                 if (isset($objPage->id))
                 {
                     $objPageDelete = PageModel::findWithDetails($objPage->id);
@@ -150,7 +150,7 @@ class ModuleAngebotDashboard extends Module
                         $arrRow['deleteItemHref'] = sprintf($href, $arrRow['alias']);
                     }
                 }
-                // Get the readerJumpTo
+                // Get the readerItemHref
                 if (isset($objPage->id))
                 {
                     $objPageReader = PageModel::findWithDetails($this->readerJumpTo);

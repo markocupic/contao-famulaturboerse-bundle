@@ -79,8 +79,6 @@ class ModuleAngebotForm extends Module
     protected $arrMessages = array();
 
     /**
-     * Display a login form
-     *
      * @return string
      */
     public function generate()
@@ -141,7 +139,9 @@ class ModuleAngebotForm extends Module
         return parent::generate();
     }
 
-
+    /**
+     * @throws \Exception
+     */
     protected function compile()
     {
         if ($this->allowForm)
