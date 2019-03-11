@@ -56,7 +56,7 @@
 
     <?php if($this->createNewHref): ?>
         <div class="angebotDashboardListeFooter">
-            <a href="<?=  $this->Template->createNewHref ?>" title="Neue Angebot erstellen" class="btn">Neue Angebot erstellen</a>
+            <a href="<?=  $this->Template->createNewHref ?>" title="Neue Angebot erstellen" class="btn">Neues Angebot erstellen</a>
         </div>
     <?php endif; ?>
 <?php endif; ?>
