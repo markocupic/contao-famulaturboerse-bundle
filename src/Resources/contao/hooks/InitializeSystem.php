@@ -28,34 +28,69 @@ class InitializeSystem
     public function migrateFromEfg()
     {
         // !!!!!!!First manually import tl_formdata and tl_formdata_details with phpmyadmin
-        if (Database::getInstance()->tableExists('tl_formdata') && Database::getInstance()->tableExists('tl_formdata_details'))
+        if (TL_MODE === 'BE' && Database::getInstance()->tableExists('tl_formdata') && Database::getInstance()->tableExists('tl_formdata_details'))
         {
+            $arrFields = array();
+            $arrFieldList = Database::getInstance()->listFields('tl_famulatur_angebot');
+            foreach ($arrFieldList as $field)
+            {
+                $arrFields[] = $field['name'];
+            }
+
             // Do only migrate if tl_famulatur_angebot is empty
             $objFamulatur = Database::getInstance()->execute('SELECT * FROM tl_famulatur_angebot');
             if (!$objFamulatur->numRows)
             {
-                // First truncate tl_famulatur_angebot
-                Database::getInstance()->execute('TRUNCATE TABLE tl_famulatur_angebot');
-
-                // Get data from tl_formdata
-                $objDb = Database::getInstance()->prepare('SELECT * FROM tl_formdata WHERE form=?')->execute('Angebot');
-                while ($objDb->next())
+                try
                 {
-                    $set = $objDb->row();
-                    $set['be_notes'] = '';
-                    Database::getInstance()->prepare('INSERT INTO tl_famulatur_angebot %s')->set($set)->execute();
-                }
+                    echo('Migrated data from efg tables (tl_formdata & tl_formdata_details) into tl_famulatur_angebot: ');
 
-                // Get data from tl_formdata_details
-                $objDb = Database::getInstance()->prepare('SELECT * FROM tl_formdata_details ORDER BY pid')->execute();
-                while ($objDb->next())
-                {
-                    $objDb2 = Database::getInstance()->prepare('SELECT * FROM tl_famulatur_angebot WHERE id=?')->execute($objDb->pid);
-                    if ($objDb2->numRows)
+                    // Begin transaction
+                    Database::getInstance()->beginTransaction();
+
+                    $i = 0;
+                    // Get data from tl_formdata
+                    $objDb = Database::getInstance()->prepare('SELECT * FROM tl_formdata WHERE form=?')->execute('Angebot');
+                    while ($objDb->next())
                     {
-                        Database::getInstance()->prepare('UPDATE tl_famulatur_angebot SET ' . $objDb->ff_name . '=? WHERE id=?')->execute($objDb->value, $objDb->pid);
+                        $i++;
+                        $set = $objDb->row();
+                        $set['be_notes'] = '';
+                        foreach ($set as $k => $v)
+                        {
+                            if (!in_array($k, $arrFields))
+                            {
+                                unset($set[$k]);
+                            }
+                        }
+                        Database::getInstance()->prepare('INSERT INTO tl_famulatur_angebot %s')->set($set)->execute();
+                        echo '.';
                     }
+
+                    // Get data from tl_formdata_details
+                    $objDb = Database::getInstance()->prepare('SELECT * FROM tl_formdata_details ORDER BY pid')->execute();
+                    while ($objDb->next())
+                    {
+                        $objDb2 = Database::getInstance()->prepare('SELECT * FROM tl_famulatur_angebot WHERE id=?')->execute($objDb->pid);
+                        if ($objDb2->numRows)
+                        {
+                            if (in_array($objDb->ff_name, $arrFields))
+                            {
+                                Database::getInstance()->prepare('UPDATE tl_famulatur_angebot SET ' . $objDb->ff_name . '=? WHERE id=?')->execute($objDb->value, $objDb->pid);
+                            }
+                        }
+                    }
+                    // Commit transaction
+                    Database::getInstance()->commitTransaction();
+
+                    echo '<br>Finished migration process. Inserted ' . $i . ' records into tl_famulatur_angebot.';
+
+                } catch (Exception $e)
+                {
+                    echo 'An exception has been thrown. We must rollback the transaction.';
+                    Database::getInstance()->rollbackTransaction();
                 }
+                exit;
             }
         }
     }
