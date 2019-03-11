@@ -8,12 +8,12 @@ Vor der Installation sollte die opengeo Datenbank auf dem Server installiert sei
 
 ### Plugin Installation
 Danach über den Manager oder die Konsole das Bundle installieren.
-´´´
+```php
 composer require markocupic/contao-famulaturboerse-bundle
 ´´´
 Jetzt die Datenbak updaten.
 Das Plugin installiert zusätzlich die Erweiterungen:
-´´´
+```php
 "require": {
   "contao/core-bundle": "^4.4",
   "codefog/contao-haste": "^4.23",
