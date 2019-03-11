@@ -13,8 +13,7 @@ $GLOBALS['TL_LANG']['MOD']['famulatur_angebot'] = array('Famulatur Angebote', 'E
 
 // Frontend modules
 $GLOBALS['TL_LANG']['FMD']['famulatur'] = 'Famulaturbörse Module';
-$GLOBALS['TL_LANG']['FMD']['angebotForm'] = array('Angebot Formular', 'Binden Sie ein Angebot-Formular-Module ein.');
-$GLOBALS['TL_LANG']['FMD']['angebotDashboard'] = array('Angebot Dashboard', 'Binden Sie ein Angebot-Dashboard ein.');
-$GLOBALS['TL_LANG']['FMD']['angebotReader'] = array('Angebot Detailseite', 'Binden Sie ein Angebot-Detailseite Modul ein.');
-$GLOBALS['TL_LANG']['FMD']['angebotList'] = array('Angebot Auflistung', 'Binden Sie ein Angebot-Reader-Modul ein.');
-
+$GLOBALS['TL_LANG']['FMD']['angebotForm'] = array('Formular zum Erfassen der Famulatur-Angebote', 'Binden Sie ein Angebot-Formular-Module ein.');
+$GLOBALS['TL_LANG']['FMD']['angebotDashboard'] = array('Famulatur-Angebote Dashboard', 'Binden Sie ein Angebot-Dashboard ein.');
+$GLOBALS['TL_LANG']['FMD']['angebotReader'] = array('Famulatur-Angebote (Reader)', 'Binden Sie ein Angebot-Detailseite Modul ein.');
+$GLOBALS['TL_LANG']['FMD']['angebotList'] = array('Famulatur-Angebote (Liste)', 'Binden Sie ein Angebot-Reader-Modul ein.');
