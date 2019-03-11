@@ -83,3 +83,5 @@ class UpdateFamulaturAngebot
         }
     }
 }
+
+class_alias(UpdateFamulaturAngebot::class, 'UpdateFamulaturAngebot');

@@ -102,6 +102,6 @@ class FamulaturHelper
         return $varValue;
     }
 
-
-
 }
+
+class_alias(FamulaturHelper::class, 'FamulaturHelper');

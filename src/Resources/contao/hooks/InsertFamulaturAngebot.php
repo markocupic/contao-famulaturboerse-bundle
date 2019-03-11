@@ -83,3 +83,5 @@ class InsertFamulaturAngebot
         }
     }
 }
+
+class_alias(InsertFamulaturAngebot::class, 'InsertFamulaturAngebot');

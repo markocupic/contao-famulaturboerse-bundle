@@ -139,3 +139,5 @@ class InitializeSystem
         }
     }
 }
+
+class_alias(InitializeSystem::class, 'InitializeSystem');
