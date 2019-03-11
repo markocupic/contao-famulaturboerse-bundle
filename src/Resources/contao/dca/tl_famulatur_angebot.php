@@ -1,10 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 04.03.2019
- * Time: 21:46
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
+
 
 $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
     // Config
@@ -17,9 +20,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
         (//
         ),
         'onload_callback'   => array
-        (
-            //array('tl_famulatur_angebot', 'setPalettes'),
-            //array('tl_famulatur_angebot', 'deleteUnfinishedAndOldEntries'),
+        (//
         ),
         'ondelete_callback' => array
         (//
@@ -106,9 +107,6 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
         'default' => 'date,ip,be_notes,fd_member,fd_member_group,alias,anform_kurzbeschreibung,anform_zusatztext,anform_richtung,anform_schwerpunkte,anform_angebot,anform_erwartung,anform_anforderungen,anform_kvbezirk,anform_hausbesuch,anform_fahrt,anform_nacht,anform_verkehr,anform_praxis,anform_ansprechpartner,anform_strasse,anform_plz,anform_stadt,anform_bundesland,anform_telefon,anform_fax,anform_email,anform_web',
     ),
 
-    // Subpalettes
-    //'subpalettes' => array('confirmationSent' => 'confirmationDate'),
-
     // Fields
     'fields'   => array(
 
@@ -171,26 +169,6 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'search'    => false,
             'eval'      => array('isBoolean' => true, 'submitOnChange' => true, 'tl_class' => 'clr long'),
             'sql'       => "char(1) NOT NULL default ''",
-        ),
-        'confirmationSent'        => array(
-            'label'     => &$GLOBALS['TL_LANG']['tl_famulatur_angebot']['confirmationSent'],
-            'inputType' => 'checkbox',
-            'filter'    => true,
-            'sorting'   => false,
-            'search'    => false,
-            'eval'      => array('isBoolean' => true, 'submitOnChange' => true, 'tl_class' => 'clr long'),
-            'sql'       => "char(1) NOT NULL default ''",
-        ),
-        'confirmationDate'        => array(
-            'label'     => &$GLOBALS['TL_LANG']['tl_famulatur_angebot']['confirmationDate'],
-            'exclude'   => true,
-            'inputType' => 'text',
-            'filter'    => true,
-            'sorting'   => false,
-            'search'    => false,
-            'flag'      => 5,
-            'eval'      => array('rgxp' => 'date', 'mandatory' => true, 'doNotCopy' => true, 'datepicker' => true, 'tl_class' => 'w50 wizard'),
-            'sql'       => "int(10) unsigned NULL"
         ),
         'be_notes'                => array(
             'label'     => &$GLOBALS['TL_LANG']['tl_famulatur_angebot']['be_notes'],

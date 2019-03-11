@@ -1,10 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 08.03.2019
- * Time: 09:33
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
+
 
 namespace Markocupic\Famulatur\Modules;
 
@@ -35,22 +38,17 @@ class ModuleAngebotList extends Module
      */
     protected $strTemplate = 'mod_angebotList';
 
-
     /**
      * @var
      */
     protected $form;
-
 
     /**
      * @var array
      */
     protected $arrFilterFields = array('anform_filter_postal', 'anform_filter_umkreis', 'anform_filter_fachrichtung');
 
-
     /**
-     * Display a login form
-     *
      * @return string
      */
     public function generate()
@@ -71,7 +69,9 @@ class ModuleAngebotList extends Module
         return parent::generate();
     }
 
-
+    /**
+     *
+     */
     protected function compile()
     {
         global $objPage;
@@ -189,6 +189,10 @@ class ModuleAngebotList extends Module
 
     }
 
+
+    /**
+     *
+     */
     protected function generateFilterForm()
     {
 
@@ -197,10 +201,7 @@ class ModuleAngebotList extends Module
         // Create the form
         $objForm = $this->createForm('form-famulatur-listing-filter');
 
-        // Add hidden fields REQUEST_TOKEN & FORM_SUBMIT
-        //$objForm->addContaoHiddenFields();
         $objForm->addSubmitFormField('submit', 'Filter anwenden');
-
 
         $objForm->addFormField('anform_filter_postal', array(
             'label'     => $GLOBALS['TL_LANG']['MISC']['anform_filter_postal'],
@@ -218,8 +219,6 @@ class ModuleAngebotList extends Module
                 100   => '100 km',
                 1000  => '1000 km',
                 10000 => '10000 km'
-
-
             ),
             'eval'      => array('includeBlankOption' => true, 'blankOptionLabel' => 'keine Umkreissuche', 'mandatory' => false)
         ));

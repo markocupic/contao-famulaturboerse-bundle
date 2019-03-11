@@ -1,10 +1,13 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 08.03.2019
- * Time: 09:33
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
+
 
 namespace Markocupic\Famulatur\Modules;
 

@@ -1,9 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 09.03.2019
- * Time: 11:31
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
 
 
@@ -11,7 +13,6 @@
 $GLOBALS['TL_LANG']['tl_module']['form_legend'] = 'Formular-Einstellungen';
 
 // Fields
-
 $GLOBALS['TL_LANG']['tl_module']['formAngebotJumpTo'] = array('Seite mit dem Angebotsformular-Modul','Wählen Sie die Seite mit dem Angebotsformular-Modul aus.');
 $GLOBALS['TL_LANG']['tl_module']['readerJumpTo'] = array('Seite mit dem Angebots-Reader','Wählen Sie die Seite mit dem Angebots-Reader-Modul aus.');
 $GLOBALS['TL_LANG']['tl_module']['notifyOnFamulaturAngebotInserts'] = array('Benachrichtigung bei Inserts aktivieren','Versenden Sie bei Inserts E-Mails.');

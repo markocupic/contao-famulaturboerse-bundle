@@ -1,9 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 08.03.2019
- * Time: 14:37
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
 
 use Markocupic\Famulatur\Models\FamulaturAngebotModel;
@@ -14,36 +16,24 @@ use Markocupic\Famulatur\Models\FamulaturAngebotModel;
 class tl_famulatur_angebot extends Backend
 {
 
-
-    /**
-     * bool
-     * bei eingeschränkten Usern wird der Wert auf true gesetzt
-     */
-
     public function __construct()
     {
-
         parent::__construct();
 
         $this->import('BackendUser', 'User');
-
     }
 
+
     /**
-     * Auto-generate a page alias if it has not been set yet
-     *
-     * @param mixed $varValue
-     * @param Contao\DataContainer $dc
-     *
-     * @return string
-     *
+     * @param $varValue
+     * @param \Contao\DataContainer $dc
+     * @return mixed|null|string|string[]
      * @throws Exception
      */
     public function generateAlias($varValue, Contao\DataContainer $dc)
     {
 
         return Markocupic\Famulatur\Classes\FamulaturHelper::generateAlias($varValue, $dc->id);
-
 
     }
 
@@ -83,6 +73,7 @@ class tl_famulatur_angebot extends Backend
 
         return '<a href="' . $this->addToUrl($href) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
     }
+
 
     /**
      * @param $intId
@@ -188,57 +179,6 @@ class tl_famulatur_angebot extends Backend
         $objVersions->create();
     }
 
-    /**
-     * @param DC_Table $dc
-     */
-    public function onCutCallback(DC_Table $dc)
-    {
-
-    }
-
-
-    /**
-     * @param DC_Table $dc
-     */
-    public function ondeleteCallback(DC_Table $dc)
-    {
-
-    }
-
-
-    /**
-     * child-record-callback
-     *
-     * @param array
-     * @return string
-     */
-    public function onloadCbCheckPermission()
-    {
-
-        // admin hat keine Einschraenkungen
-        if ($this->User->isAdmin)
-        {
-            return;
-        }
-
-        //Nur der Ersteller hat keine Einschraenkungen
-
-        if (Input::get('act') == 'edit')
-        {
-            $objUser = $this->Database->prepare('SELECT owner FROM tl_gallery_creator_pictures WHERE id=?')->execute(Input::get('id'));
-
-            if ($GLOBALS['TL_CONFIG']['gc_disable_backend_edit_protection'])
-            {
-                return;
-            }
-
-            if ($objUser->owner != $this->User->id)
-            {
-                $this->restrictedUser = true;
-            }
-        }
-    }
-
 
     /**
      * Return the "feature/unfeature element" button
@@ -276,8 +216,9 @@ class tl_famulatur_angebot extends Backend
         return '<a href="' . $this->addToUrl($href) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon, $label, 'data-state="' . ($row['featured'] ? 1 : 0) . '"') . '</a> ';
     }
 
+
     /**
-     * Feature/unfeature a news item
+     * Feature/unfeature a famulatur item
      *
      * @param integer $intId
      * @param boolean $blnVisible
@@ -325,6 +266,5 @@ class tl_famulatur_angebot extends Backend
 
         $objVersions->create();
     }
-
 
 }

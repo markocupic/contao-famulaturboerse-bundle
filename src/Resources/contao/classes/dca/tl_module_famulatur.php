@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
+ */
+
+
 /**
  * Class tl_module_famulatur
  */

@@ -1,9 +1,11 @@
 <?php
-/**
- * SAC Event Tool Web Plugin for Contao
- * Copyright (c) 2008-2019 Marko Cupic
- * @package contao-db-backup
- * @author Marko Cupic m.cupic@gmx.ch, 2019
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
 
 namespace Markocupic\ContaoFamulaturboerseBundle\ContaoManager;
@@ -14,8 +16,7 @@ use Contao\ManagerPlugin\Bundle\Parser\ParserInterface;
 
 /**
  * Class Plugin
- * Plugin for the Contao Manager
- * @package Markocupic\ContaoThemeSacPilatus\ContaoManager
+ * @package Markocupic\ContaoFamulaturboerseBundle\ContaoManager
  */
 class Plugin implements BundlePluginInterface
 {

@@ -1,17 +1,19 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 08.03.2019
- * Time: 09:33
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
+
 
 namespace Markocupic\Famulatur\Modules;
 
 
 use Contao\Config;
 use Contao\Controller;
-use Contao\CoreBundle\Security\Exception\LockedException;
 use Contao\Environment;
 use Contao\FrontendUser;
 use Contao\Input;
@@ -23,16 +25,13 @@ use Haste\Form\Form;
 use Contao\FamulaturAngebotModel;
 use Markocupic\Famulatur\Classes\FamulaturHelper;
 use Patchwork\Utf8;
-use Symfony\Component\Routing\RouterInterface;
-use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Contao\Module;
 use Contao\BackendTemplate;
 use Contao\Database;
 
 /**
- * Front end module "login".
- *
- * @author Leo Feyer <https://github.com/leofeyer>
+ * Class ModuleAngebotForm
+ * @package Markocupic\Famulatur\Modules
  */
 class ModuleAngebotForm extends Module
 {
@@ -48,7 +47,6 @@ class ModuleAngebotForm extends Module
      * @var string
      */
     protected $strFlashType = 'contao.FE.famulatur';
-
 
     /**
      * @var

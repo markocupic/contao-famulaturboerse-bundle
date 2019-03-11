@@ -1,9 +1,11 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 04.03.2019
- * Time: 23:20
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
 
 namespace Markocupic\Famulatur\Classes;
@@ -101,57 +103,5 @@ class FamulaturHelper
     }
 
 
-    public function migrate()
-    {
-        return;
-        /**
-         * $arrConfig = array(
-         * 'dbHost'     => Config::get('dbHost'),
-         * 'dbPort'     => Config::get('dbPort'),
-         * 'dbUser'     => 'aeracing_opengeo',
-         * 'dbPass'     => 'WUa?7Zy;2Jy:6V',
-         * 'dbDatabase' => 'aeracing_opengeo'
-         * );
-         *
-         * $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM city ORDER BY name')->execute();
-         * while($objDb->next())
-         * {
-         * echo $objDb->name . '<br>';
-         * }*/
 
-        Controller::loadDataContainer('tl_famulatur_angebot');
-        foreach ($GLOBALS['TL_DCA']['tl_famulatur_angebot']['fields'] as $k => $v)
-        {
-            //echo sprintf('$GLOBALS[\'TL_LANG\'][\'tl_famulatur_angebot\'][\'%s\'] = array(\'%s\', \'\');', $k, $k);
-            //echo '<br>';
-        }
-
-
-        // !!!!!!!First import tl_formdate and tl_formdata_details with phpmyadmin if the tables do not exist
-
-
-        // First truncate tl_famulatur_angebot
-        Database::getInstance()->prepare('TRUNCATE TABLE tl_famulatur_angebot')->execute();
-
-        $objDb = Database::getInstance()->prepare('SELECT * FROM tl_formdata WHERE form=?')->execute('Angebot');
-        while ($objDb->next())
-        {
-            $set = $objDb->row();
-            //echo print_r($set,true) . '<br>';
-            $set['be_notes'] = '';
-            Database::getInstance()->prepare('INSERT INTO tl_famulatur_angebot %s')->set($set)->execute();
-
-        }
-
-        $objDb = Database::getInstance()->prepare('SELECT * FROM tl_formdata_details ORDER BY pid')->execute();
-        while ($objDb->next())
-        {
-            $objDb2 = Database::getInstance()->prepare('SELECT * FROM tl_famulatur_angebot WHERE id=?')->execute($objDb->pid);
-            if ($objDb2->numRows)
-            {
-                //echo sprintf('UPDATE tl_famulatur_angebot SET %s=%s WHERE id=%s', $objDb->ff_name, $objDb->value, $objDb->pid) . '<br>';
-                $objDb3 = Database::getInstance()->prepare('UPDATE tl_famulatur_angebot SET ' . $objDb->ff_name . '=? WHERE id=?')->execute($objDb->value, $objDb->pid);
-            }
-        }
-    }
 }

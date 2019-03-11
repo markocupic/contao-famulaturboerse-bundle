@@ -1,12 +1,12 @@
 <?php
 
-/**
- * Contao Db Backup Web Plugin for Contao
- * Copyright (c) 2008-2019 Marko Cupic
- * @package contao-db-backup
- * @author Marko Cupic m.cupic@gmx.ch, 2019
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
-
 
 
 namespace Markocupic\ContaoFamulaturboerseBundle;
@@ -14,9 +14,8 @@ namespace Markocupic\ContaoFamulaturboerseBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Configures the contao theme sac pilatus.
- *
- * @author Marko Cupic <https://github.com/markocupic>
+ * Class MarkocupicContaoFamulaturboerseBundle
+ * @package Markocupic\ContaoFamulaturboerseBundle
  */
 class MarkocupicContaoFamulaturboerseBundle extends Bundle
 {

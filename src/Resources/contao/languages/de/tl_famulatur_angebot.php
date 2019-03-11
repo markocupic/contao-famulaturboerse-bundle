@@ -1,18 +1,20 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Marko
- * Date: 05.03.2019
- * Time: 10:43
+
+/*
+ * This file is part of Contao Famulaturbörse Bundle.
+ *
+ * (c) Marko Cupic
+ * @author Marko Cupic <https://github.com/markocupic/contao-famulaturboerse-bundle>
+ * @license MIT
  */
+
+
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['featured'] = array('Hervorheben', 'Geben Sie den Wert für "Hervorheben" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['tstamp'] = array('Änderungsdatum', 'Geben Sie den Wert für "Änderungsdatum" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['date'] = array('Erstellungsdatum', 'Geben Sie den Wert für "Erstellungsdatum" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['ip'] = array('IP-Adresse', 'Geben Sie den Wert für "IP-Adresse" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['sorting'] = array('Sortierindex', 'Geben Sie den Wert für "Sortierindex" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['published'] = array('Veröffentlicht', 'Soll der Eintrag veröffentlicht werden?');
-$GLOBALS['TL_LANG']['tl_famulatur_angebot']['confirmationSent'] = array('Bestätigung versendet', 'Geben Sie den Wert für "Bestätigung versendet" ein.');
-$GLOBALS['TL_LANG']['tl_famulatur_angebot']['confirmationDate'] = array('Bestätigungsdatum', 'Geben Sie den Wert für "Bestätigungsdatum" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['be_notes'] = array('Backend-Bemerkungen', 'Geben Sie den Wert für "be_notes" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['fd_member'] = array('Erstellt von Mitglied', 'Geben Sie den Wert für "erstellt von Mitglied" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['fd_member_group'] = array('Mitgliedergruppen', 'Geben Sie den Wert für "Mitgliedergruppen" ein.');
