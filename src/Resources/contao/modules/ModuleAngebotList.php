@@ -81,7 +81,6 @@ class ModuleAngebotList extends Module
 
         $this->Template->form = $this->form;
 
-
         // Build query
         $arrCol = array('id>?');
         $arrVal = array(0);
@@ -103,10 +102,8 @@ class ModuleAngebotList extends Module
             }
         }
 
-
         // Defaults
         $arrOptions = array('order' => 'tl_famulatur_angebot.anform_plz ASC');
-
 
         // Get sortBy from url
         if (Input::get('sortBy'))
@@ -122,7 +119,7 @@ class ModuleAngebotList extends Module
             $arrOptions['order'] = sprintf('tl_famulatur_angebot.%s %s', Input::get('sortBy'), $direction);
         }
 
-        // Get Model
+        // Get model
         $objListing = FamulaturAngebotModel::findBy(
             $arrCol,
             $arrVal,
@@ -189,7 +186,6 @@ class ModuleAngebotList extends Module
 
     }
 
-
     /**
      *
      */
@@ -255,7 +251,6 @@ class ModuleAngebotList extends Module
 
         $this->form = $objForm;
     }
-
 
     /**
      * @param $strId
@@ -328,7 +323,6 @@ class ModuleAngebotList extends Module
         return $arrZip;
     }
 
-
     /**
      * @param $intUmkreis
      * @param $strZip
@@ -382,7 +376,6 @@ class ModuleAngebotList extends Module
 
     }
 
-
     /**
      * @see http://opengeodb.org/wiki/OpenGeoDB_-_Umkreissuche
      * @see Download http://www.fa-technik.adfc.de/code/opengeodb/
@@ -432,7 +425,6 @@ class ModuleAngebotList extends Module
         }
         return;
     }
-
 
 }
 
