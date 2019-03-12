@@ -8,9 +8,7 @@
  * @license MIT
  */
 
-
 namespace Markocupic\Famulatur\Modules;
-
 
 use Contao\Config;
 use Contao\FrontendUser;
@@ -48,7 +46,6 @@ class ModuleAngebotDashboard extends Module
      */
     protected $objMember;
 
-
     /**
      * @var array
      */
@@ -81,7 +78,6 @@ class ModuleAngebotDashboard extends Module
         {
             Input::setGet('items', Input::get('auto_item'));
         }
-
 
         // Delete item
         if (Input::get('action') === 'delete')
@@ -120,7 +116,6 @@ class ModuleAngebotDashboard extends Module
         global $objPage;
         if ($this->allowListing)
         {
-
             $this->Template->allowListing = true;
 
             $arrRows = [];
@@ -192,9 +187,7 @@ class ModuleAngebotDashboard extends Module
             $this->Template->hasMessages = true;
             $this->Template->messages = $this->arrMessages;
         }
-
     }
-
 
     /**
      * @return mixed
@@ -211,7 +204,6 @@ class ModuleAngebotDashboard extends Module
         return null;
     }
 
-
     /**
      * @param $key
      * @param string $message
@@ -221,7 +213,6 @@ class ModuleAngebotDashboard extends Module
         if (!isset($_SESSION[$key]))
         {
             $_SESSION[$key] = array();
-
         }
         $_SESSION[$key][] = $message;
     }
@@ -235,7 +226,6 @@ class ModuleAngebotDashboard extends Module
         if (!isset($_SESSION[$key]))
         {
             $_SESSION[$key] = array();
-
         }
         return $_SESSION[$key];
     }

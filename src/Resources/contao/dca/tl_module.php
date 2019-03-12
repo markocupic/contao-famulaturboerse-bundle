@@ -11,18 +11,16 @@
 // Selectors
 $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'notifyOnFamulaturAngebotInserts';
 
-
 // Palettes
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotForm'] = '{title_legend},name,headline,type;{form_legend},autoPublishOnInsert,formFields;{redirect_legend},jumpTo;{notification_legend},notifyOnFamulaturAngebotInserts;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotDashboard'] = '{title_legend},name,headline,type;{redirect_legend},formAngebotJumpTo,readerJumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotList'] = '{title_legend},name,headline,type;{redirect_legend},readerJumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotReader'] = '{title_legend},name,headline,type;{field_legend},formFields;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
-
 // Subpalettes
 $GLOBALS['TL_DCA']['tl_module']['subpalettes']['notifyOnFamulaturAngebotInserts'] = 'insertFamulaturAngebotNotification';
 
-// Fields
+// Fieldss
 $GLOBALS['TL_DCA']['tl_module']['fields']['formFields'] = array(
     'label'     => &$GLOBALS['TL_LANG']['tl_module']['formFields'],
     'exclude'   => true,

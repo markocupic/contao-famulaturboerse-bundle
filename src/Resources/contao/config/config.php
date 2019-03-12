@@ -8,7 +8,6 @@
  * @license MIT
  */
 
-
 /**
  * Back end modules
  */
@@ -18,7 +17,6 @@ $GLOBALS['BE_MOD']['famulatur'] = array(
         'tables' => array('tl_famulatur_angebot'),
     )
 );
-
 
 /**
  * Front end modules
@@ -34,7 +32,6 @@ array_insert($GLOBALS['FE_MOD'], 3, array
     )
 ));
 
-
 /**
  * Register HOOKS
  */
@@ -45,7 +42,6 @@ $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Markocupic\Famulatur\Hooks\I
 $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Markocupic\Famulatur\Hooks\InitializeSystem', 'insertDefaultNotification');
 $GLOBALS['TL_HOOKS']['onInsertFamulaturAngebot'][] = array('Markocupic\Famulatur\Hooks\InsertFamulaturAngebot', 'insertFamulaturAngebot');
 $GLOBALS['TL_HOOKS']['onUpdateFamulaturAngebot'][] = array('Markocupic\Famulatur\Hooks\UpdateFamulaturAngebot', 'updateFamulaturAngebot');
-
 
 /**
  * Notification_center

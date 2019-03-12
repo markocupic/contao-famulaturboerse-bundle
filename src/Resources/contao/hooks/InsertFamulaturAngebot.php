@@ -8,7 +8,6 @@
  * @license MIT
  */
 
-
 namespace Markocupic\Famulatur\Hooks;
 
 use Contao\Controller;
@@ -19,7 +18,6 @@ use Contao\Module;
 use Contao\StringUtil;
 use NotificationCenter\Model\Notification;
 use Haste\Form\Form;
-
 
 /**
  * Class InsertFamulaturAngebot
@@ -47,10 +45,9 @@ class InsertFamulaturAngebot
                 $objEmail = Notification::findByPk($objModule->insertFamulaturAngebotNotification);
                 if ($objEmail !== null)
                 {
-
                     // Set token array
                     $arrTokens = array(
-                        'link_backend'       => sprintf('%s/contao?do=famulatur_angebotn&act=edit&id=%s', Environment::get('url'), $objAngebotModel->id),
+                        'link_backend' => sprintf('%s/contao?do=famulatur_angebotn&act=edit&id=%s', Environment::get('url'), $objAngebotModel->id),
                     );
 
                     // Add wildcards anform_* & email_text
@@ -59,8 +56,7 @@ class InsertFamulaturAngebot
                     $arrAllowedFields = StringUtil::deserialize($objModule->formFields, true);
                     foreach ($arrRow as $k => $v)
                     {
-
-                        if(in_array($k, $arrAllowedFields))
+                        if (in_array($k, $arrAllowedFields))
                         {
                             $key = $GLOBALS['TL_LANG']['tl_famulatur_angebot'][$k][0] != '' ? $GLOBALS['TL_LANG']['tl_famulatur_angebot'][$k][0] : $k;
                             $strText .= '[' . $key . ']';

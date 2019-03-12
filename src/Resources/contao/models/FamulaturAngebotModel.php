@@ -8,9 +8,7 @@
  * @license MIT
  */
 
-
 namespace Contao;
-
 
 /**
  * Class FamulaturAngebotModel
@@ -23,7 +21,6 @@ class FamulaturAngebotModel extends Model
      * @var string
      */
     protected static $strTable = 'tl_famulatur_angebot';
-
 
 }
 

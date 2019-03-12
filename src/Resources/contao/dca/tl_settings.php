@@ -8,10 +8,9 @@
  * @license MIT
  */
 
-
 \Contao\CoreBundle\DataContainer\PaletteManipulator::create()
-    ->addLegend('open_geo_legend','', \Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
-    ->addField(['openGeoDbHost', 'openGeoDbPort', 'openGeoDbUser','openGeoDbPassword','openGeoDbDatabase'], 'open_geo_legend')
+    ->addLegend('open_geo_legend', '', \Contao\CoreBundle\DataContainer\PaletteManipulator::POSITION_AFTER)
+    ->addField(['openGeoDbHost', 'openGeoDbPort', 'openGeoDbUser', 'openGeoDbPassword', 'openGeoDbDatabase'], 'open_geo_legend')
     ->applyToPalette('default', 'tl_settings');
 
 $GLOBALS['TL_DCA']['tl_settings']['fields']['openGeoDbHost'] = array(

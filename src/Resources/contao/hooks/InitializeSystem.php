@@ -8,12 +8,10 @@
  * @license MIT
  */
 
-
 namespace Markocupic\Famulatur\Hooks;
 
 use Contao\Database;
 use NotificationCenter\Model\Notification;
-
 
 /**
  * Class InitializeSystem
@@ -84,7 +82,6 @@ class InitializeSystem
                     Database::getInstance()->commitTransaction();
 
                     echo '<br>Finished migration process. Inserted ' . $i . ' records into tl_famulatur_angebot.';
-
                 } catch (Exception $e)
                 {
                     echo 'An exception has been thrown. We must rollback the transaction.';
@@ -126,13 +123,13 @@ class InitializeSystem
                 $oInsertStmt2 = Database::getInstance()->prepare('INSERT into tl_nc_message %s')->set($set)->execute();
 
                 $set = array(
-                    'pid'                  => $oInsertStmt2->insertId,
-                    'tstamp'               => time(),
-                    'gateway_type'         => 'email',
-                    'language'             => 'de',
-                    'fallback'             => '1',
-                    'email_mode'           => 'textOnly',
-                    'email_text'           => '##email_text##'
+                    'pid'          => $oInsertStmt2->insertId,
+                    'tstamp'       => time(),
+                    'gateway_type' => 'email',
+                    'language'     => 'de',
+                    'fallback'     => '1',
+                    'email_mode'   => 'textOnly',
+                    'email_text'   => '##email_text##'
                 );
                 Database::getInstance()->prepare('INSERT into tl_nc_language %s')->set($set)->execute();
             }

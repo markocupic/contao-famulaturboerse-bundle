@@ -15,14 +15,15 @@ use Markocupic\Famulatur\Models\FamulaturAngebotModel;
  */
 class tl_famulatur_angebot extends Backend
 {
-
+    /**
+     * tl_famulatur_angebot constructor.
+     */
     public function __construct()
     {
         parent::__construct();
 
         $this->import('BackendUser', 'User');
     }
-
 
     /**
      * @param $varValue
@@ -32,11 +33,8 @@ class tl_famulatur_angebot extends Backend
      */
     public function generateAlias($varValue, Contao\DataContainer $dc)
     {
-
         return Markocupic\Famulatur\Classes\FamulaturHelper::generateAlias($varValue, $dc->id);
-
     }
-
 
     /**
      * Return the "toggle visibility" button
@@ -73,7 +71,6 @@ class tl_famulatur_angebot extends Backend
 
         return '<a href="' . $this->addToUrl($href) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon, $label, 'data-state="' . ($row['published'] ? 1 : 0) . '"') . '</a> ';
     }
-
 
     /**
      * @param $intId
@@ -179,7 +176,6 @@ class tl_famulatur_angebot extends Backend
         $objVersions->create();
     }
 
-
     /**
      * Return the "feature/unfeature element" button
      *
@@ -215,7 +211,6 @@ class tl_famulatur_angebot extends Backend
 
         return '<a href="' . $this->addToUrl($href) . '" title="' . Contao\StringUtil::specialchars($title) . '"' . $attributes . '>' . Contao\Image::getHtml($icon, $label, 'data-state="' . ($row['featured'] ? 1 : 0) . '"') . '</a> ';
     }
-
 
     /**
      * Feature/unfeature a famulatur item

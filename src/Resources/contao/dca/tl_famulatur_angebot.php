@@ -8,7 +8,6 @@
  * @license MIT
  */
 
-
 $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
     // Config
     'config'   => array

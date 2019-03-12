@@ -24,7 +24,6 @@ class FamulaturHelper
 
     public static function generateAlias($varValue, $id)
     {
-
         $objFamulaturAngebot = FamulaturAngebotModel::findByPk($id);
         if ($objFamulaturAngebot === null)
         {
@@ -44,7 +43,6 @@ class FamulaturHelper
             return true;
         };
 
-
         // Sanitize
         $web = $objFamulaturAngebot->anform_web;
         $web = str_ireplace('http://', $web, '');
@@ -57,7 +55,6 @@ class FamulaturHelper
 
         $varValue = str_ireplace('angebot-', '', $varValue);
         $varValue = str_ireplace('angebot_', '', $varValue);
-
 
         // Generate an alias if there is none
         if ($varValue == '')

@@ -8,7 +8,6 @@
  * @license MIT
  */
 
-
 namespace Markocupic\ContaoFamulaturboerseBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

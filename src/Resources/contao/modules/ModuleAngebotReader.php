@@ -8,9 +8,7 @@
  * @license MIT
  */
 
-
 namespace Markocupic\Famulatur\Modules;
-
 
 use Contao\Config;
 use Contao\Controller;
@@ -20,7 +18,6 @@ use Contao\FamulaturAngebotModel;
 use Patchwork\Utf8;
 use Contao\Module;
 use Contao\BackendTemplate;
-
 
 /**
  * Class ModuleAngebotReader
@@ -44,7 +41,6 @@ class ModuleAngebotReader extends Module
      * @var
      */
     protected $allowedFields;
-
 
     /**
      * @return string
@@ -96,14 +92,14 @@ class ModuleAngebotReader extends Module
         Controller::loadLanguageFile('tl_famulatur_angebot');
 
         $arrItem = array();
-        foreach($this->angebotModel->row() as $k => $v)
+        foreach ($this->angebotModel->row() as $k => $v)
         {
-            if(in_array($k, $this->allowedFields))
+            if (in_array($k, $this->allowedFields))
             {
                 $arrItem[$k] = $v;
             }
         }
-        $this->Template->item =  $arrItem;
+        $this->Template->item = $arrItem;
 
         // Closure for label
         $this->Template->getLabel = (function ($k) {

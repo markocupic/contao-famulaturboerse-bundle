@@ -8,9 +8,7 @@
  * @license MIT
  */
 
-
 namespace Markocupic\Famulatur\Modules;
-
 
 use Contao\Config;
 use Contao\Controller;
@@ -78,7 +76,6 @@ class ModuleAngebotForm extends Module
      */
     protected $arrMessages = array();
 
-    
     /**
      * @return string
      */
@@ -136,11 +133,9 @@ class ModuleAngebotForm extends Module
             }
         }
 
-
         return parent::generate();
     }
 
-    
     /**
      * @throws \Exception
      */
@@ -168,17 +163,13 @@ class ModuleAngebotForm extends Module
             $this->Template->hasMessages = true;
             $this->Template->messages = $this->arrMessages;
         }
-
     }
-
 
     /**
      * @throws \Exception
      */
     protected function generateAngebotForm()
     {
-
-
         Controller::loadLanguageFile('tl_famulatur_angebot');
 
         // Create the form
@@ -195,10 +186,8 @@ class ModuleAngebotForm extends Module
             $objForm->bindModel($this->getAngebotModel());
         }
 
-
         // Get model
         $objForm->addFieldsFromDca('tl_famulatur_angebot', function (&$strField, &$arrDca) {
-
             if ($strField === 'fd_member' || $strField === 'alias' || $strField === 'id')
             {
                 return false;
@@ -225,7 +214,6 @@ class ModuleAngebotForm extends Module
         // Helper to build the form with all the fields
         //$this->generateFormCode($objForm);
 
-
         // Validate and save
         if ($objForm->validate())
         {
@@ -233,7 +221,6 @@ class ModuleAngebotForm extends Module
 
             if (!$blnHasError)
             {
-
                 if ($this->getAngebotModel() === null)
                 {
                     $set = array(
@@ -297,11 +284,9 @@ class ModuleAngebotForm extends Module
             }
         }
 
-
         $this->form = $objForm;
     }
 
-    
     /**
      * @param $strId
      * @return Form
@@ -312,7 +297,6 @@ class ModuleAngebotForm extends Module
             return Input::post('FORM_SUBMIT') === $objHaste->getFormId();
         });
 
-
         $url = Environment::get('uri');
         $objForm->setFormActionFromUri($url);
 
@@ -322,7 +306,6 @@ class ModuleAngebotForm extends Module
         return $objForm;
     }
 
-    
     /**
      * @return mixed
      */
@@ -331,7 +314,6 @@ class ModuleAngebotForm extends Module
         return $this->angebotModel;
     }
 
-    
     /**
      * @param FamulaturAngebotModel $objModel
      */
@@ -339,7 +321,6 @@ class ModuleAngebotForm extends Module
     {
         $this->angebotModel = $objModel;
     }
-
 
     /**
      * @return mixed
@@ -355,7 +336,6 @@ class ModuleAngebotForm extends Module
         }
         return null;
     }
-
 
     /**
      * @param $objForm
@@ -389,7 +369,6 @@ class ModuleAngebotForm extends Module
         if (!isset($_SESSION[$key]))
         {
             $_SESSION[$key] = array();
-
         }
         $_SESSION[$key][] = $message;
     }
@@ -403,7 +382,6 @@ class ModuleAngebotForm extends Module
         if (!isset($_SESSION[$key]))
         {
             $_SESSION[$key] = array();
-
         }
         return $_SESSION[$key];
     }
