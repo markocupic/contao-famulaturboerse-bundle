@@ -78,6 +78,7 @@ class ModuleAngebotForm extends Module
      */
     protected $arrMessages = array();
 
+    
     /**
      * @return string
      */
@@ -139,6 +140,7 @@ class ModuleAngebotForm extends Module
         return parent::generate();
     }
 
+    
     /**
      * @throws \Exception
      */
@@ -273,7 +275,7 @@ class ModuleAngebotForm extends Module
 
                 $this->angebotModel->fd_member_group = $this->objMember->groups;
 
-                // Save and reload
+                // Save model
                 $this->angebotModel->save();
 
                 // Call hooks
@@ -286,7 +288,7 @@ class ModuleAngebotForm extends Module
                 $errMsg = $GLOBALS['TL_LANG']['MISC']['famulaturFormSent'];
                 $this->setFlashMessage($this->strFlashType, $errMsg);
 
-                // Check whether there is a jumpTo page
+                // Check whether there is a jumpTo page or reload
                 if (($objPage = PageModel::findByPk($this->jumpTo)) instanceof PageModel)
                 {
                     $this->jumpToOrReload($objPage->row());
@@ -299,6 +301,7 @@ class ModuleAngebotForm extends Module
         $this->form = $objForm;
     }
 
+    
     /**
      * @param $strId
      * @return Form
@@ -319,6 +322,7 @@ class ModuleAngebotForm extends Module
         return $objForm;
     }
 
+    
     /**
      * @return mixed
      */
@@ -327,6 +331,7 @@ class ModuleAngebotForm extends Module
         return $this->angebotModel;
     }
 
+    
     /**
      * @param FamulaturAngebotModel $objModel
      */
