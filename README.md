@@ -58,7 +58,7 @@ Um auf Updates und Inserts reagieren zu können, existieren 2 Hooks. Siehe confi
 $GLOBALS['TL_HOOKS']['onInsertFamulaturAngebot'][] = array('Markocupic\Famulatur\Hooks\InsertFamulaturAngebot', 'insertFamulaturAngebot');
 $GLOBALS['TL_HOOKS']['onUpdateFamulaturAngebot'][] = array('Markocupic\Famulatur\Hooks\UpdateFamulaturAngebot', 'updateFamulaturAngebot');
 ```
-
+Der onInsertFamulaturAngebot-Hook wird beispielsweise benutzt, um die Benachrichtigungen bei neuen Inserts zu versenden.
 ```php
 <?php
 
