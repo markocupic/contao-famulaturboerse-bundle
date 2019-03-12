@@ -85,8 +85,6 @@ class ModuleAngebotReader extends Module
 
         $this->allowedFields = StringUtil::deserialize($this->formFields, true);
 
-
-
         return parent::generate();
     }
 
@@ -106,7 +104,6 @@ class ModuleAngebotReader extends Module
             }
         }
         $this->Template->item =  $arrItem;
-
 
         // Closure for label
         $this->Template->getLabel = (function ($k) {
