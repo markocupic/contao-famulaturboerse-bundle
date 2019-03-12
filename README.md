@@ -46,7 +46,10 @@ Es müssen 4 Module am besten in dieser Reihenfolge angelegt werden.
 - Formularseite zum Erfassen der Famulatur-Angebote
 - Famulatur-Angebote Dashboard
 
-Zusätzlich muss jetzt noch die Benachrichtigung im Notification Center erstellt werden und die SMTP-Einstellungen gemacht werden für den E-Mailversand vei neuen Inserts in die Famulatur-Tabelle.
+Zusätzlich muss jetzt noch die Benachrichtigung im Notification Center erstellt werden und die SMTP-Einstellungen gemacht werden für den E-Mailversand bei neuen Inserts in die Famulatur-Tabelle.
+Folgende Tags können für die Benachrichtigung benutzt werden: 
+##anform_*## für den Zugriff auf die Formularwerte, ##email_text## für den Zugriff auf den ganzen Datensatz und ##link_backend## für den Link ins Contao-Backend zum aktuellen Famulatur-Datensatz.
+
 
 Danach die Module den Seiten/Artikeln zuweisen.
 
