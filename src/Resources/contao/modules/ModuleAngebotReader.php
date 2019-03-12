@@ -14,16 +14,15 @@ use Contao\Config;
 use Contao\Controller;
 use Contao\Input;
 use Contao\StringUtil;
-use Contao\FamulaturAngebotModel;
 use Patchwork\Utf8;
-use Contao\Module;
+use Markocupic\Famulatur\Classes\FamulaturModule;
 use Contao\BackendTemplate;
 
 /**
  * Class ModuleAngebotReader
  * @package Markocupic\Famulatur\Modules
  */
-class ModuleAngebotReader extends Module
+class ModuleAngebotReader extends FamulaturModule
 {
 
     /**
@@ -31,11 +30,6 @@ class ModuleAngebotReader extends Module
      * @var string
      */
     protected $strTemplate = 'mod_angebotReader';
-
-    /**
-     * @var
-     */
-    protected $angebotModel;
 
     /**
      * @var
@@ -65,16 +59,8 @@ class ModuleAngebotReader extends Module
             Input::setGet('items', Input::get('auto_item'));
         }
 
-        if (Input::get('items') !== '')
-        {
-            $objAngebot = FamulaturAngebotModel::findByIdOrAlias(Input::get('items'));
-            if ($objAngebot !== null)
-            {
-                $this->angebotModel = $objAngebot;
-            }
-        }
-
-        if (!$this->angebotModel)
+        // Get Famulatur Angebot Model from parent class
+        if ($this->getFamulaturAngebotModel() === null)
         {
             return '';
         }
@@ -92,7 +78,7 @@ class ModuleAngebotReader extends Module
         Controller::loadLanguageFile('tl_famulatur_angebot');
 
         $arrItem = array();
-        foreach ($this->angebotModel->row() as $k => $v)
+        foreach ($this->objFamulaturAngebot->row() as $k => $v)
         {
             if (in_array($k, $this->allowedFields))
             {
@@ -113,7 +99,6 @@ class ModuleAngebotReader extends Module
             }
         });
     }
-
 }
 
 class_alias(ModuleAngebotReader::class, 'ModuleAngebotReader');

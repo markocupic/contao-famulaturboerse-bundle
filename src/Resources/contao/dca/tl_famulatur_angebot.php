@@ -380,7 +380,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => true,
             'sorting'   => true,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'digit', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'germanpostal', 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_stadt'            => array(

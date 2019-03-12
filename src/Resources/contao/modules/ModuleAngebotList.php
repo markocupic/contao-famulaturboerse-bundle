@@ -8,9 +8,7 @@
  * @license MIT
  */
 
-
 namespace Markocupic\Famulatur\Modules;
-
 
 use Contao\Config;
 use Contao\Controller;
@@ -20,8 +18,9 @@ use Contao\PageModel;
 use Haste\Form\Form;
 use Contao\FamulaturAngebotModel;
 use Haste\Util\Url;
+use Markocupic\Famulatur\Classes\FamulaturHelper;
+use Markocupic\Famulatur\Classes\FamulaturModule;
 use Patchwork\Utf8;
-use Contao\Module;
 use Contao\BackendTemplate;
 use Contao\Database;
 
@@ -29,7 +28,7 @@ use Contao\Database;
  * Class ModuleAngebotList
  * @package Markocupic\Famulatur\Modules
  */
-class ModuleAngebotList extends Module
+class ModuleAngebotList extends FamulaturModule
 {
 
     /**
@@ -64,7 +63,6 @@ class ModuleAngebotList extends Module
 
             return $objTemplate->parse();
         }
-        //$this->generateZipcodeTable();
 
         return parent::generate();
     }
@@ -74,9 +72,7 @@ class ModuleAngebotList extends Module
      */
     protected function compile()
     {
-        global $objPage;
-
-
+        // Generate filter form
         $this->generateFilterForm();
 
         $this->Template->form = $this->form;
@@ -92,7 +88,6 @@ class ModuleAngebotList extends Module
                 {
                     $arrCol[] = 'tl_famulatur_angebot.anform_richtung=?';
                     $arrVal[] = Input::get($strFieldname);
-
                 }
                 if ($strFieldname === 'anform_filter_postal' && Input::get('anform_filter_umkreis') == '')
                 {
@@ -172,9 +167,7 @@ class ModuleAngebotList extends Module
             {
                 $this->Template->countRows = count($arrRows);
             }
-
         }
-
 
         // Generate sortBy urls
         $this->Template->urlSortByPlz = $this->generateSortingUrl('anform_plz');
@@ -184,6 +177,7 @@ class ModuleAngebotList extends Module
 
         $this->Template->rows = $arrRows;
 
+        $this->addMessagesToTemplate();
     }
 
     /**
@@ -191,7 +185,6 @@ class ModuleAngebotList extends Module
      */
     protected function generateFilterForm()
     {
-
         Controller::loadDataContainer('tl_famulatur_angebot');
 
         // Create the form
@@ -202,7 +195,7 @@ class ModuleAngebotList extends Module
         $objForm->addFormField('anform_filter_postal', array(
             'label'     => $GLOBALS['TL_LANG']['MISC']['anform_filter_postal'],
             'inputType' => 'text',
-            'eval'      => array('rgxp' => 'natural', 'minlength' => 5, 'maxlength' => 5, 'mandatory' => false)
+            'eval'      => array('rgxp' => 'germanpostal', 'minlength' => 5, 'maxlength' => 5, 'mandatory' => false)
         ));
 
         $objForm->addFormField('anform_filter_umkreis', array(
@@ -237,17 +230,13 @@ class ModuleAngebotList extends Module
             $objForm->getWidget('anform_filter_umkreis')->value = '';
         }
 
-        // Validate and save
-        if ($objForm->validate())
+        if (Input::get('anform_filter_postal') !== '')
         {
-            $blnHasError = false;
-
-            if (!$blnHasError)
+            if (!FamulaturHelper::isValidGermanPostalCode(Input::get('anform_filter_postal')))
             {
-                // No validation
+                $this->arrMessages[] = sprintf($GLOBALS['TL_LANG']['ERR']['invalidPostalCode'], 'Postleitzahl');
             }
         }
-
 
         $this->form = $objForm;
     }
@@ -280,7 +269,6 @@ class ModuleAngebotList extends Module
         if (!strlen(Input::get('sortDirection')) || Input::get('sortDirection') === 'asc')
         {
             $url = Url::addQueryString('sortDirection=desc', $url);
-
         }
         else
         {
@@ -294,33 +282,6 @@ class ModuleAngebotList extends Module
         $url = Url::addQueryString('sortBy=' . $key, $url);
 
         return $url;
-
-    }
-
-    /**
-     * @return array
-     */
-    protected function getValidZipcodesFromOpenGeo()
-    {
-
-        $arrConfig = array(
-            'dbHost'     => Config::get('openGeoDbHost'),
-            'dbPort'     => Config::get('openGeoDbPort'),
-            'dbUser'     => Config::get('openGeoDbUser'),
-            'dbPass'     => Config::get('openGeoDbPassword'),
-            'dbDatabase' => Config::get('openGeoDbDatabase')
-        );
-
-        $arrZip = array();
-
-
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
-        while ($objDb->next())
-        {
-            $arrZip[] = $objDb->zipcode;
-        }
-
-        return $arrZip;
     }
 
     /**
@@ -330,7 +291,6 @@ class ModuleAngebotList extends Module
      */
     protected function filterByUmkreis($intUmkreis, $strZip)
     {
-
         $sql = 'SELECT ' .
             'dest.zc_zip, ' .
             'dest.zc_location_name, ' .
@@ -365,67 +325,13 @@ class ModuleAngebotList extends Module
                     $arrZip[] = $objDb->zc_zip;
                 }
             }
-
         } catch (Exception $e)
         {
             echo 'Could not connect to opengeo database. Please check credentials in the Backend Settings of the Contao backend.' . $e->getMessage(), "\n";
         }
 
-
         return array_unique($arrZip);
-
     }
-
-    /**
-     * @see http://opengeodb.org/wiki/OpenGeoDB_-_Umkreissuche
-     * @see Download http://www.fa-technik.adfc.de/code/opengeodb/
-     * @see http://www.lichtblau-it.de/downloads
-     */
-    protected function generateZipcodeTable()
-    {
-
-        $arrConfig = array(
-            'dbHost'     => Config::get('openGeoDbHost'),
-            'dbPort'     => Config::get('openGeoDbPort'),
-            'dbUser'     => Config::get('openGeoDbUser'),
-            'dbPass'     => Config::get('openGeoDbPassword'),
-            'dbDatabase' => Config::get('openGeoDbDatabase')
-        );
-
-        $createTableSQL = 'CREATE TABLE zip_coordinates (
-            zc_id INT NOT NULL auto_increment PRIMARY KEY,
-            zc_loc_id INT NOT NULL ,
-            zc_zip VARCHAR( 10 ) NOT NULL ,
-            zc_location_name VARCHAR( 255 ) NOT NULL ,
-            zc_lat DOUBLE NOT NULL ,
-            zc_lon DOUBLE NOT NULL)';
-        Database::getInstance($arrConfig)->prepare($createTableSQL)->execute();
-
-
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
-        while ($objDb->next())
-        {
-            $set = array(
-                'zc_loc_id' => $objDb->city_id,
-                'zc_zip'    => $objDb->zipcode,
-            );
-            Database::getInstance($arrConfig)->prepare('INSERT INTO zip_coordinates %s')->set($set)->execute();
-        }
-
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->execute();
-        while ($objDb->next())
-        {
-            $objDb2 = Database::getInstance($arrConfig)->prepare('SELECT * FROM city WHERE id=?')->execute($objDb->zc_loc_id);
-            $set = array(
-                'zc_location_name' => $objDb2->name,
-                'zc_lat'           => $objDb2->lat,
-                'zc_lon'           => $objDb2->lng
-            );
-            Database::getInstance($arrConfig)->prepare('UPDATE zip_coordinates %s WHERE zc_id=?')->set($set)->execute($objDb->zc_id);
-        }
-        return;
-    }
-
 }
 
 class_alias(ModuleAngebotList::class, 'ModuleAngebotList');

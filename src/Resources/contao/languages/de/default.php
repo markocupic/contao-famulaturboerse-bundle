@@ -8,7 +8,10 @@
  * @license MIT
  */
 
+// Errors
+$GLOBALS['TL_LANG']['ERR']['invalidPostalCode'] = 'Das Feld %s sollte eine gültige deutsche Postleitzahl sein.';
 
+// Miscellaneous
 $GLOBALS['TL_LANG']['MISC']['famulaturFormSent'] = 'Ihre Angebot wurde erfolgreich gespeichert.';
 $GLOBALS['TL_LANG']['MISC']['allowFamulaturAngebotFormToLoggedInUsersOnly'] = 'Bitte loggen Sie sich ein, um das Famulatur-Angebot Formular nutzen zu können.';
 $GLOBALS['TL_LANG']['MISC']['notAllowedUsingFamulaturAngebotForm'] = 'Sie besitzen nicht die nötigen Rechte für diesen Vorgang.';

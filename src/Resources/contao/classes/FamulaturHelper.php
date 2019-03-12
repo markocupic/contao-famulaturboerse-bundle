@@ -11,7 +11,6 @@
 namespace Markocupic\Famulatur\Classes;
 
 use Contao\Database;
-use Contao\Controller;
 use Contao\Config;
 use Contao\FamulaturAngebotModel;
 
@@ -97,6 +96,96 @@ class FamulaturHelper
         }
 
         return $varValue;
+    }
+
+    /**
+     * @see http://opengeodb.org/wiki/OpenGeoDB_-_Umkreissuche
+     * @see Download http://www.fa-technik.adfc.de/code/opengeodb/
+     * @see http://www.lichtblau-it.de/downloads
+     */
+    public static function generateZipcodeTable()
+    {
+        $arrConfig = array(
+            'dbHost'     => Config::get('openGeoDbHost'),
+            'dbPort'     => Config::get('openGeoDbPort'),
+            'dbUser'     => Config::get('openGeoDbUser'),
+            'dbPass'     => Config::get('openGeoDbPassword'),
+            'dbDatabase' => Config::get('openGeoDbDatabase')
+        );
+
+        $createTableSQL = 'CREATE TABLE zip_coordinates (
+            zc_id INT NOT NULL auto_increment PRIMARY KEY,
+            zc_loc_id INT NOT NULL ,
+            zc_zip VARCHAR( 10 ) NOT NULL ,
+            zc_location_name VARCHAR( 255 ) NOT NULL ,
+            zc_lat DOUBLE NOT NULL ,
+            zc_lon DOUBLE NOT NULL)';
+        Database::getInstance($arrConfig)->prepare($createTableSQL)->execute();
+
+        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
+        while ($objDb->next())
+        {
+            $set = array(
+                'zc_loc_id' => $objDb->city_id,
+                'zc_zip'    => $objDb->zipcode,
+            );
+            Database::getInstance($arrConfig)->prepare('INSERT INTO zip_coordinates %s')->set($set)->execute();
+        }
+
+        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->execute();
+        while ($objDb->next())
+        {
+            $objDb2 = Database::getInstance($arrConfig)->prepare('SELECT * FROM city WHERE id=?')->execute($objDb->zc_loc_id);
+            $set = array(
+                'zc_location_name' => $objDb2->name,
+                'zc_lat'           => $objDb2->lat,
+                'zc_lon'           => $objDb2->lng
+            );
+            Database::getInstance($arrConfig)->prepare('UPDATE zip_coordinates %s WHERE zc_id=?')->set($set)->execute($objDb->zc_id);
+        }
+        return;
+    }
+
+    /**
+     * @return array
+     */
+    public static function getValidZipcodesFromOpenGeo()
+    {
+        $arrConfig = array(
+            'dbHost'     => Config::get('openGeoDbHost'),
+            'dbPort'     => Config::get('openGeoDbPort'),
+            'dbUser'     => Config::get('openGeoDbUser'),
+            'dbPass'     => Config::get('openGeoDbPassword'),
+            'dbDatabase' => Config::get('openGeoDbDatabase')
+        );
+
+        $arrZip = array();
+
+        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
+        while ($objDb->next())
+        {
+            $arrZip[] = $objDb->zipcode;
+        }
+
+        return $arrZip;
+    }
+
+    /**
+     * @param $varValue
+     * @return bool
+     */
+    public static function isValidGermanPostalCode($varValue)
+    {
+        $arrValidZipCodes = static::getValidZipcodesFromOpenGeo();
+        if (!preg_match('/^[0-9]{5}$/', $varValue))
+        {
+            return false;
+        }
+        elseif (!in_array($varValue, $arrValidZipCodes))
+        {
+            return false;
+        }
+        return true;
     }
 
 }

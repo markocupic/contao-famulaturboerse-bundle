@@ -42,6 +42,7 @@ $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Markocupic\Famulatur\Hooks\I
 $GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Markocupic\Famulatur\Hooks\InitializeSystem', 'insertDefaultNotification');
 $GLOBALS['TL_HOOKS']['onInsertFamulaturAngebot'][] = array('Markocupic\Famulatur\Hooks\InsertFamulaturAngebot', 'insertFamulaturAngebot');
 $GLOBALS['TL_HOOKS']['onUpdateFamulaturAngebot'][] = array('Markocupic\Famulatur\Hooks\UpdateFamulaturAngebot', 'updateFamulaturAngebot');
+$GLOBALS['TL_HOOKS']['addCustomRegexp'][] = array('Markocupic\Famulatur\Hooks\AddCustomRegexp', 'isValidGermanPostal');
 
 /**
  * Notification_center

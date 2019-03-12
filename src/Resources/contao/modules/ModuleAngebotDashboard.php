@@ -11,14 +11,11 @@
 namespace Markocupic\Famulatur\Modules;
 
 use Contao\Config;
-use Contao\FrontendUser;
 use Contao\Input;
-use Contao\MemberModel;
 use Contao\PageModel;
-use Contao\System;
 use Contao\FamulaturAngebotModel;
 use Patchwork\Utf8;
-use Contao\Module;
+use Markocupic\Famulatur\Classes\FamulaturModule;
 use Contao\BackendTemplate;
 use Contao\Database;
 
@@ -26,7 +23,7 @@ use Contao\Database;
  * Class ModuleAngebotDashboard
  * @package Markocupic\Famulatur\Modules
  */
-class ModuleAngebotDashboard extends Module
+class ModuleAngebotDashboard extends FamulaturModule
 {
 
     /**
@@ -34,22 +31,6 @@ class ModuleAngebotDashboard extends Module
      * @var string
      */
     protected $strTemplate = 'mod_angebotDashboard';
-
-    /**
-     * Flash type
-     * @var string
-     */
-    protected $strFlashType = 'contao.FE.famulatur';
-
-    /**
-     * @var
-     */
-    protected $objMember;
-
-    /**
-     * @var array
-     */
-    protected $arrMessages = array();
 
     /**
      * @var bool
@@ -72,7 +53,6 @@ class ModuleAngebotDashboard extends Module
 
             return $objTemplate->parse();
         }
-        global $objPage;
         // Set the item from the auto_item parameter
         if (!isset($_GET['items']) && Config::get('useAutoItem') && isset($_GET['auto_item']))
         {
@@ -89,17 +69,15 @@ class ModuleAngebotDashboard extends Module
                 $strMsg = $GLOBALS['TL_LANG']['MISC']['deletedAngebot'];
                 $this->setFlashMessage($this->strFlashType, $strMsg);
             }
+
             // Redirect back
+            global $objPage;
             $oPage = PageModel::findWithDetails($objPage->id);
             $this->redirect($oPage->getAbsoluteUrl());
         }
 
         // Allow module to logged in users only
-        if (($objMember = $this->getMemberModel()) !== null)
-        {
-            $this->objMember = $objMember;
-        }
-        else
+        if ($this->getMemberModel() === null)
         {
             $this->allowListing = false;
             $this->arrMessages[] = $GLOBALS['TL_LANG']['MISC']['notAllowedUsingFamulaturDashboard'];
@@ -172,87 +150,8 @@ class ModuleAngebotDashboard extends Module
             $this->Template->rows = $arrRows;
         }
 
-        // Handle Messages
-        $session = System::getContainer()->get('session');
-        // Get flash bag messages and merge them
-        if ($session->isStarted() && $this->hasFlashMessage($this->strFlashType))
-        {
-            $this->arrMessages = array_merge($this->arrMessages, $this->getFlashMessage($this->strFlashType));
-            $this->unsetFlashMessage($this->strFlashType);
-        }
-
-        // Add messages to template
-        if (!empty($this->arrMessages))
-        {
-            $this->Template->hasMessages = true;
-            $this->Template->messages = $this->arrMessages;
-        }
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getMemberModel()
-    {
-        if (FE_USER_LOGGED_IN)
-        {
-            if (($objMember = FrontendUser::getInstance()) !== null)
-            {
-                return MemberModel::findByPk($objMember->id);
-            }
-        }
-        return null;
-    }
-
-    /**
-     * @param $key
-     * @param string $message
-     */
-    protected function setFlashMessage($key, $message = '')
-    {
-        if (!isset($_SESSION[$key]))
-        {
-            $_SESSION[$key] = array();
-        }
-        $_SESSION[$key][] = $message;
-    }
-
-    /**
-     * @param $key
-     * @return mixed
-     */
-    protected function getFlashMessage($key)
-    {
-        if (!isset($_SESSION[$key]))
-        {
-            $_SESSION[$key] = array();
-        }
-        return $_SESSION[$key];
-    }
-
-    /**
-     * @param $key
-     */
-    protected function unsetFlashMessage($key)
-    {
-        if (isset($_SESSION[$key]))
-        {
-            $_SESSION[$key] = null;
-            unset($_SESSION[$key]);
-        }
-    }
-
-    /**
-     * @param $key
-     * @return bool
-     */
-    protected function hasFlashMessage($key)
-    {
-        if (isset($_SESSION[$key]) && !empty($_SESSION[$key]))
-        {
-            return true;
-        }
-        return false;
+        // Call addMessagesTorTemplate form parent class
+        $this->addMessagesToTemplate();
     }
 }
 

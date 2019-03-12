@@ -13,9 +13,7 @@ namespace Markocupic\Famulatur\Modules;
 use Contao\Config;
 use Contao\Controller;
 use Contao\Environment;
-use Contao\FrontendUser;
 use Contao\Input;
-use Contao\MemberModel;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
@@ -23,7 +21,7 @@ use Haste\Form\Form;
 use Contao\FamulaturAngebotModel;
 use Markocupic\Famulatur\Classes\FamulaturHelper;
 use Patchwork\Utf8;
-use Contao\Module;
+use Markocupic\Famulatur\Classes\FamulaturModule;
 use Contao\BackendTemplate;
 use Contao\Database;
 
@@ -31,7 +29,7 @@ use Contao\Database;
  * Class ModuleAngebotForm
  * @package Markocupic\Famulatur\Modules
  */
-class ModuleAngebotForm extends Module
+class ModuleAngebotForm extends FamulaturModule
 {
 
     /**
@@ -39,22 +37,6 @@ class ModuleAngebotForm extends Module
      * @var string
      */
     protected $strTemplate = 'mod_angebotForm';
-
-    /**
-     * Flash type
-     * @var string
-     */
-    protected $strFlashType = 'contao.FE.famulatur';
-
-    /**
-     * @var
-     */
-    protected $angebotModel;
-
-    /**
-     * @var
-     */
-    protected $objMember;
 
     /**
      * @var bool
@@ -70,11 +52,6 @@ class ModuleAngebotForm extends Module
      * @var
      */
     protected static $allowedFields;
-
-    /**
-     * @var array
-     */
-    protected $arrMessages = array();
 
     /**
      * @return string
@@ -101,31 +78,22 @@ class ModuleAngebotForm extends Module
             Input::setGet('items', Input::get('auto_item'));
         }
 
-        if (Input::get('items') !== '')
-        {
-            $objAngebot = FamulaturAngebotModel::findByIdOrAlias(Input::get('items'));
-            if ($objAngebot !== null)
-            {
-                $this->angebotModel = $objAngebot;
-            }
-        }
+        // Get Angebot Model from parent class
+        $this->getFamulaturAngebotModel();
 
         // Allow module to logged in users only
-        if (($objMember = $this->getMemberModel()) !== null)
-        {
-            $this->objMember = $objMember;
-        }
-        else
+        if ($this->getMemberModel() === null)
         {
             $this->allowForm = false;
             $this->arrMessages[] = $GLOBALS['TL_LANG']['MISC']['allowFamulaturAngebotFormToLoggedInUsersOnly'];
         }
 
-        if (($objMember = $this->getMemberModel()) !== null)
+        // Do only allow users to edit their own items
+        if ($this->objMember !== null)
         {
-            if (($objAngebotModel = $this->getAngebotModel()) !== null)
+            if (($objAngebotModel = $this->objFamulaturAngebot) !== null)
             {
-                if ($objAngebotModel->fd_member !== $objMember->id)
+                if ($objAngebotModel->fd_member !== $this->objMember->id)
                 {
                     $this->allowForm = false;
                     $this->arrMessages[] = $GLOBALS['TL_LANG']['MISC']['notAllowedUsingFamulaturAngebotForm'];
@@ -148,21 +116,8 @@ class ModuleAngebotForm extends Module
             $this->Template->form = $this->form;
         }
 
-        // Handle Messages
-        $session = System::getContainer()->get('session');
-        // Get flash bag messages and merge them
-        if ($session->isStarted() && $this->hasFlashMessage($this->strFlashType))
-        {
-            $this->arrMessages = array_merge($this->arrMessages, $this->getFlashMessage($this->strFlashType));
-            $this->unsetFlashMessage($this->strFlashType);
-        }
-
-        // Add messages to template
-        if (!empty($this->arrMessages))
-        {
-            $this->Template->hasMessages = true;
-            $this->Template->messages = $this->arrMessages;
-        }
+        // Call addMessagesTorTemplate form parent class
+        $this->addMessagesToTemplate();
     }
 
     /**
@@ -181,9 +136,9 @@ class ModuleAngebotForm extends Module
         $objForm->addCaptchaFormField('captcha');
 
         // Bind model
-        if ($this->getAngebotModel() !== null)
+        if ($this->objFamulaturAngebot !== null)
         {
-            $objForm->bindModel($this->getAngebotModel());
+            $objForm->bindModel($this->objFamulaturAngebot);
         }
 
         // Get model
@@ -221,7 +176,7 @@ class ModuleAngebotForm extends Module
 
             if (!$blnHasError)
             {
-                if ($this->getAngebotModel() === null)
+                if ($this->objFamulaturAngebot === null)
                 {
                     $set = array(
                         'date'      => time(),
@@ -234,41 +189,44 @@ class ModuleAngebotForm extends Module
                     {
                         $insertId = $objInsertStmt->insertId;
 
-                        $this->setAngebotModel(FamulaturAngebotModel::findByPk($insertId));
+                        if (($objFamulaturAngebot = FamulaturAngebotModel::findByPk($insertId)) !== null)
+                        {
+                            $this->objFamulaturAngebot = $objFamulaturAngebot;
+                        }
 
                         foreach (static::$allowedFields as $strField)
                         {
                             if ($objForm->hasFormField($strField))
                             {
-                                $this->angebotModel->{$strField} = $objForm->getWidget($strField)->value;
+                                $this->objFamulaturAngebot->{$strField} = $objForm->getWidget($strField)->value;
                             }
                         }
 
                         // Call hooks
                         foreach ($GLOBALS['TL_HOOKS']['onInsertFamulaturAngebot'] as $callback)
                         {
-                            System::importStatic($callback[0])->{$callback[1]}($this->angebotModel, $this->objMember, $objForm, $this);
+                            System::importStatic($callback[0])->{$callback[1]}($this->objFamulaturAngebot, $this->objMember, $objForm, $this);
                         }
                     }
                 }
 
-                if ($this->angebotModel->alias == '')
+                if ($this->objFamulaturAngebot->alias == '')
                 {
-                    $this->angebotModel->alias = FamulaturHelper::generateAlias('', $this->angebotModel->id);
+                    $this->objFamulaturAngebot->alias = FamulaturHelper::generateAlias('', $this->objFamulaturAngebot->id);
                 }
 
-                $this->angebotModel->tstamp = time();
-                $this->angebotModel->ip = Environment::get('ip');
+                $this->objFamulaturAngebot->tstamp = time();
+                $this->objFamulaturAngebot->ip = Environment::get('ip');
 
-                $this->angebotModel->fd_member_group = $this->objMember->groups;
+                $this->objFamulaturAngebot->fd_member_group = $this->objMember->groups;
 
                 // Save model
-                $this->angebotModel->save();
+                $this->objFamulaturAngebot->save();
 
                 // Call hooks
                 foreach ($GLOBALS['TL_HOOKS']['onUpdateFamulaturAngebot'] as $callback)
                 {
-                    System::importStatic($callback[0])->{$callback[1]}($this->angebotModel, $this->objMember, $objForm, $this);
+                    System::importStatic($callback[0])->{$callback[1]}($this->objFamulaturAngebot, $this->objMember, $objForm, $this);
                 }
 
                 // Set Message
@@ -307,37 +265,6 @@ class ModuleAngebotForm extends Module
     }
 
     /**
-     * @return mixed
-     */
-    protected function getAngebotModel()
-    {
-        return $this->angebotModel;
-    }
-
-    /**
-     * @param FamulaturAngebotModel $objModel
-     */
-    protected function setAngebotModel(FamulaturAngebotModel $objModel)
-    {
-        $this->angebotModel = $objModel;
-    }
-
-    /**
-     * @return mixed
-     */
-    protected function getMemberModel()
-    {
-        if (FE_USER_LOGGED_IN)
-        {
-            if (($objMember = FrontendUser::getInstance()) !== null)
-            {
-                return MemberModel::findByPk($objMember->id);
-            }
-        }
-        return null;
-    }
-
-    /**
      * @param $objForm
      */
     private function generateFormCode($objForm)
@@ -358,57 +285,6 @@ class ModuleAngebotForm extends Module
       ", '<?php $field', $fieldname, '$this->form->', '$field', '<?= $field ?>', 'widget-<?= $field ?>', '$this->form->', '$field');
         }
         die($strHtml);
-    }
-
-    /**
-     * @param $key
-     * @param string $message
-     */
-    protected function setFlashMessage($key, $message = '')
-    {
-        if (!isset($_SESSION[$key]))
-        {
-            $_SESSION[$key] = array();
-        }
-        $_SESSION[$key][] = $message;
-    }
-
-    /**
-     * @param $key
-     * @return mixed
-     */
-    protected function getFlashMessage($key)
-    {
-        if (!isset($_SESSION[$key]))
-        {
-            $_SESSION[$key] = array();
-        }
-        return $_SESSION[$key];
-    }
-
-    /**
-     * @param $key
-     */
-    protected function unsetFlashMessage($key)
-    {
-        if (isset($_SESSION[$key]))
-        {
-            $_SESSION[$key] = null;
-            unset($_SESSION[$key]);
-        }
-    }
-
-    /**
-     * @param $key
-     * @return bool
-     */
-    protected function hasFlashMessage($key)
-    {
-        if (isset($_SESSION[$key]) && !empty($_SESSION[$key]))
-        {
-            return true;
-        }
-        return false;
     }
 }
 
