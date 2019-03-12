@@ -205,9 +205,8 @@ class ModuleAngebotList extends FamulaturModule
                 10    => '10 km',
                 25    => '25 km',
                 50    => '50 km',
-                100   => '100 km',
-                1000  => '1000 km',
-                10000 => '10000 km'
+                //100   => '100 km',
+                //1000  => '1000 km'
             ),
             'eval'      => array('includeBlankOption' => true, 'blankOptionLabel' => 'keine Umkreissuche', 'mandatory' => false)
         ));
@@ -230,7 +229,7 @@ class ModuleAngebotList extends FamulaturModule
             $objForm->getWidget('anform_filter_umkreis')->value = '';
         }
 
-        if (Input::get('anform_filter_postal') !== '')
+        if (strlen(Input::get('anform_filter_postal')))
         {
             if (!FamulaturHelper::isValidGermanPostalCode(Input::get('anform_filter_postal')))
             {
