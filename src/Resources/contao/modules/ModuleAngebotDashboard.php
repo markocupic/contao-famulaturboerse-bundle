@@ -164,7 +164,7 @@ class ModuleAngebotDashboard extends Module
                 $arrRows[] = $arrRow;
             }
 
-            // Get the createNewHref URL
+            // Get the createNewHref
             if (isset($this->formAngebotJumpTo))
             {
                 $objFormPage = PageModel::findWithDetails($this->formAngebotJumpTo);
