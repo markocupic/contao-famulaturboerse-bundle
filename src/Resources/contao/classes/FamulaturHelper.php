@@ -203,6 +203,7 @@ class FamulaturHelper
                 if ($objOpenCageGeo !== null)
                 {
                     $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
+
                     if ($arrCoord !== null)
                     {
                         $set = [
