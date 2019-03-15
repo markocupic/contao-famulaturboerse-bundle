@@ -85,24 +85,26 @@ class ModuleAngebotReader extends FamulaturModule
             {
                 $arrItem[$k] = $v;
             }
+        }
 
-            $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
-            if ($objOpenCageGeo !== null)
+        // Get lat and lng from OpenCageGeoCode for displaying osm (open street map)
+        $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
+        if ($objOpenCageGeo !== null)
+        {
+            if (strlen($this->objFamulaturAngebot->anform_strasse) && strlen($this->objFamulaturAngebot->anform_plz) && strlen($this->objFamulaturAngebot->anform_stadt))
             {
-                if (strlen($this->objFamulaturAngebot->anform_strasse) && strlen($this->objFamulaturAngebot->anform_plz) && strlen($this->objFamulaturAngebot->anform_stadt))
-                {
-                    $strAddress = sprintf('%s,%s %s, Deutschland', $this->objFamulaturAngebot->anform_strasse, $this->objFamulaturAngebot->anform_plz, $this->objFamulaturAngebot->anform_stadt);
+                $strAddress = sprintf('%s,%s %s, Deutschland', $this->objFamulaturAngebot->anform_strasse, $this->objFamulaturAngebot->anform_plz, $this->objFamulaturAngebot->anform_stadt);
 
-                    $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
-                    if ($arrCoord !== null)
-                    {
-                        $this->Template->hasGeo = true;
-                        $this->Template->lat = $arrCoord['lat'];
-                        $this->Template->lng = $arrCoord['lng'];
-                    }
+                $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
+                if ($arrCoord !== null)
+                {
+                    $this->Template->hasGeo = true;
+                    $this->Template->lat = $arrCoord['lat'];
+                    $this->Template->lng = $arrCoord['lng'];
                 }
             }
         }
+
         $this->Template->item = $arrItem;
 
         // Closure for label
