@@ -10,7 +10,10 @@
 
 namespace Markocupic\Famulatur\Hooks;
 
+use Contao\Config;
 use Contao\Database;
+use Contao\System;
+use Markocupic\Famulatur\Classes\OpenCageGeoCode;
 use NotificationCenter\Model\Notification;
 
 /**
@@ -132,6 +135,38 @@ class InitializeSystem
                     'email_text'   => '##email_text##'
                 );
                 Database::getInstance()->prepare('INSERT into tl_nc_language %s')->set($set)->execute();
+            }
+        }
+    }
+
+    /**
+     *
+     */
+    public function updateLatAndLng()
+    {
+        if (TL_MODE == 'BE')
+        {
+            $objDatabase = Database::getInstance()->prepare('SELECT * FROM tl_famulatur_angebot WHERE anform_lat=? AND anform_lng=?')->limit(200)->execute('', '');
+            while ($objDatabase->next())
+            {
+                if ($objDatabase->anform_strasse !== '' && $objDatabase->anform_plz !== '' && $objDatabase->anform_stadt !== '')
+                {
+                    $strAddress = sprintf('%s,%s %s, Deutschland', $objDatabase->anform_strasse, $objDatabase->anform_plz, $objDatabase->anform_stadt);
+                    $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
+                    if ($objOpenCageGeo !== null)
+                    {
+                        $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
+                        if ($arrCoord !== null)
+                        {
+                            $set = [
+                                'anform_lat' => $arrCoord['lat'],
+                                'anform_lng' => $arrCoord['lng'],
+                            ];
+                            Database::getInstance()->prepare('UPDATE tl_famulatur_angebot %s WHERE id=?')->set($set)->execute($objDatabase->id);
+                            System::log(sprintf('tl_famulatur_angebot LAT & LNG with ID: %s has been updated.', $objDatabase->id), __METHOD__, TL_GENERAL);
+                        }
+                    }
+                }
             }
         }
     }

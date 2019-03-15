@@ -220,6 +220,9 @@ class ModuleAngebotForm extends FamulaturModule
 
                 $this->objFamulaturAngebot->fd_member_group = $this->objMember->groups;
 
+                // Update lat and lng
+                FamulaturHelper::updateLatAndLng($this->objFamulaturAngebot);
+
                 // Save model
                 $this->objFamulaturAngebot->save();
 

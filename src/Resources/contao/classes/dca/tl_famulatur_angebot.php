@@ -26,6 +26,22 @@ class tl_famulatur_angebot extends Backend
     }
 
     /**
+     * Onsubmit_callback
+     * @param $dc
+     */
+    public function updateLatAndLng($dc)
+    {
+        if ($dc->id !== '')
+        {
+            $objFamulaturAngebot = \Contao\FamulaturAngebotModel::findByPk($dc->id);
+            if ($objFamulaturAngebot !== null)
+            {
+                \Markocupic\Famulatur\Classes\FamulaturHelper::updateLatAndLng($objFamulaturAngebot);
+            }
+        }
+    }
+
+    /**
      * @param $varValue
      * @param \Contao\DataContainer $dc
      * @return mixed|null|string|string[]

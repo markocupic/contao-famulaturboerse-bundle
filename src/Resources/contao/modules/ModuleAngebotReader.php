@@ -79,7 +79,8 @@ class ModuleAngebotReader extends FamulaturModule
         Controller::loadLanguageFile('tl_famulatur_angebot');
 
         $arrItem = array();
-        foreach ($this->objFamulaturAngebot->row() as $k => $v)
+        $arrRow = $this->objFamulaturAngebot->row();
+        foreach ($arrRow as $k => $v)
         {
             if (in_array($k, $this->allowedFields))
             {
@@ -87,22 +88,12 @@ class ModuleAngebotReader extends FamulaturModule
             }
         }
 
-        // Get lat and lng from OpenCageGeoCode for displaying osm (open street map)
-        $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
-        if ($objOpenCageGeo !== null)
+        // Geocode for osm (open street map)
+        if ($arrRow['anform_lat'] !== '' && $arrRow['anform_lng'])
         {
-            if (strlen($this->objFamulaturAngebot->anform_strasse) && strlen($this->objFamulaturAngebot->anform_plz) && strlen($this->objFamulaturAngebot->anform_stadt))
-            {
-                $strAddress = sprintf('%s,%s %s, Deutschland', $this->objFamulaturAngebot->anform_strasse, $this->objFamulaturAngebot->anform_plz, $this->objFamulaturAngebot->anform_stadt);
-
-                $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
-                if ($arrCoord !== null)
-                {
-                    $this->Template->hasGeo = true;
-                    $this->Template->lat = $arrCoord['lat'];
-                    $this->Template->lng = $arrCoord['lng'];
-                }
-            }
+            $this->Template->hasGeo = true;
+            $this->Template->lat = $arrRow['anform_lat'];
+            $this->Template->lng = $arrRow['anform_lng'];
         }
 
         $this->Template->item = $arrItem;
@@ -116,6 +107,18 @@ class ModuleAngebotReader extends FamulaturModule
             else
             {
                 return $k;
+            }
+        });
+
+        // Closure for data
+        $this->Template->getValue = (function ($k) use ($arrRow) {
+            if (isset($arrRow[$k]))
+            {
+                return $arrRow[$k];
+            }
+            else
+            {
+                return '';
             }
         });
     }

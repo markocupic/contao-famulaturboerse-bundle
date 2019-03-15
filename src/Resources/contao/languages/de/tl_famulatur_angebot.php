@@ -8,7 +8,11 @@
  * @license MIT
  */
 
+// Legends
+$GLOBALS['TL_LANG']['tl_famulatur_angebot']['famulatur_legend'] = 'Famulatur-Angaben';
+$GLOBALS['TL_LANG']['tl_famulatur_angebot']['geocode_legend'] = 'Geocode-Einstellungen';
 
+// Fields
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['featured'] = array('Hervorheben', 'Geben Sie den Wert für "Hervorheben" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['tstamp'] = array('Änderungsdatum', 'Geben Sie den Wert für "Änderungsdatum" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['date'] = array('Erstellungsdatum', 'Geben Sie den Wert für "Erstellungsdatum" ein.');
@@ -46,3 +50,6 @@ $GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_telefon'] = array('Telefon',
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_fax'] = array('Fax', 'Geben Sie den Wert für "Fax" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_email'] = array('E-Mail', 'Geben Sie den Wert für "E-Mail" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_web'] = array('Webseite', 'Geben Sie den Wert für "Webseite" ein.');
+$GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_lat'] = array('Geografische Breite', 'Geben Sie die Koordinaten für die geografische Breite an.');
+$GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_lng'] = array('Geografische Länge', 'Geben Sie die Koordinaten für die geografische Länge an.');
+

@@ -16,7 +16,8 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
         'enableVersioning'  => true,
         'notCopyable'       => true,
         'onsubmit_callback' => array
-        (//
+        (
+            array('tl_famulatur_angebot', 'updateLatAndLng')
         ),
         'onload_callback'   => array
         (//
@@ -103,7 +104,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
     // Palettes
     'palettes' => array(
         //'__selector__' => array('confirmationSent'),
-        'default' => 'date,ip,be_notes,fd_member,fd_member_group,alias,anform_kurzbeschreibung,anform_zusatztext,anform_richtung,anform_schwerpunkte,anform_angebot,anform_erwartung,anform_anforderungen,anform_kvbezirk,anform_hausbesuch,anform_fahrt,anform_nacht,anform_verkehr,anform_praxis,anform_ansprechpartner,anform_strasse,anform_plz,anform_stadt,anform_bundesland,anform_telefon,anform_fax,anform_email,anform_web',
+        'default' => '{famulatur_legend},date,ip,be_notes,fd_member,fd_member_group,alias,anform_kurzbeschreibung,anform_zusatztext,anform_richtung,anform_schwerpunkte,anform_angebot,anform_erwartung,anform_anforderungen,anform_kvbezirk,anform_hausbesuch,anform_fahrt,anform_nacht,anform_verkehr,anform_praxis,anform_ansprechpartner,anform_strasse,anform_plz,anform_stadt,anform_bundesland,anform_telefon,anform_fax,anform_email,anform_web;{geocode_legend},anform_lat,anform_lng',
     ),
 
     // Fields
@@ -442,6 +443,26 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'sorting'   => false,
             'search'    => true,
             'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'url', 'tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ),
+        'anform_lat'              => array(
+            'label'     => &$GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_lat'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'filter'    => false,
+            'sorting'   => true,
+            'search'    => false,
+            'eval'      => array('mandatory' => false, 'tl_class' => 'w50'),
+            'sql'       => "varchar(255) NOT NULL default ''",
+        ),
+        'anform_lng'              => array(
+            'label'     => &$GLOBALS['TL_LANG']['tl_famulatur_angebot']['anform_lng'],
+            'exclude'   => true,
+            'inputType' => 'text',
+            'filter'    => false,
+            'sorting'   => true,
+            'search'    => false,
+            'eval'      => array('mandatory' => false, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         /**

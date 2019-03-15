@@ -55,13 +55,15 @@
         }).addTo(map);
 
         // Target's GPS coordinates.
-        var target = L.latLng('<?= $this->lat ?>', '<?= $this->lng ?>');
+        var target = L.latLng('<?= $this->getValue("anform_lat") ?>', '<?= $this->getValue("anform_lng") ?>');
 
         // Set map's center to target with zoom 14.
         map.setView(target, 14);
 
         // Place a marker on the same location.
-        L.marker(target).addTo(map);
+        L.marker(target).addTo(map)
+            .bindPopup('<?= $this->getValue("anform_strasse") ?>');
+
     });
 </script>
 <?php endif; ?>

@@ -13,6 +13,7 @@ namespace Markocupic\Famulatur\Classes;
 use Contao\Database;
 use Contao\Config;
 use Contao\FamulaturAngebotModel;
+use Contao\System;
 
 /**
  * Class FamulaturHelper
@@ -186,6 +187,43 @@ class FamulaturHelper
             return false;
         }
         return true;
+    }
+
+    /**
+     * @param FamulaturAngebotModel $objFamulaturAngebot
+     */
+    public static function updateLatAndLng(FamulaturAngebotModel $objFamulaturAngebot)
+    {
+        if ($objFamulaturAngebot !== null)
+        {
+            if ($objFamulaturAngebot->anform_strasse !== '' && $objFamulaturAngebot->anform_plz !== '' && $objFamulaturAngebot->anform_stadt !== '')
+            {
+                $strAddress = sprintf('%s,%s %s, Deutschland', $objFamulaturAngebot->anform_strasse, $objFamulaturAngebot->anform_plz, $objFamulaturAngebot->anform_stadt);
+                $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
+                if ($objOpenCageGeo !== null)
+                {
+                    $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
+                    if ($arrCoord !== null)
+                    {
+                        $set = [
+                            'anform_lat' => $arrCoord['lat'],
+                            'anform_lng' => $arrCoord['lng'],
+                        ];
+                        Database::getInstance()->prepare('UPDATE tl_famulatur_angebot %s WHERE id=?')->set($set)->execute($objFamulaturAngebot->id);
+                        $objFamulaturAngebot->refresh();
+                        System::log(sprintf('tl_famulatur_angebot LAT & LNG with ID: %s has been updated.', $objFamulaturAngebot->id), __METHOD__, TL_GENERAL);
+                        return;
+                    }
+                }
+            }
+            $set = [
+                'anform_lat' => '',
+                'anform_lng' => '',
+            ];
+            Database::getInstance()->prepare('UPDATE tl_famulatur_angebot %s WHERE id=?')->set($set)->execute($objFamulaturAngebot->id);
+            $objFamulaturAngebot->refresh();
+            System::log(sprintf('tl_famulatur_angebot LAT & LNG with ID: %s has been updated.', $objFamulaturAngebot->id), __METHOD__, TL_GENERAL);
+        }
     }
 
 }
