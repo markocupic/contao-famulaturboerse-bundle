@@ -14,6 +14,7 @@ use Contao\Config;
 use Contao\Controller;
 use Contao\Input;
 use Contao\StringUtil;
+use Markocupic\Famulatur\Classes\OpenCageGeoCode;
 use Patchwork\Utf8;
 use Markocupic\Famulatur\Classes\FamulaturModule;
 use Contao\BackendTemplate;
@@ -83,6 +84,23 @@ class ModuleAngebotReader extends FamulaturModule
             if (in_array($k, $this->allowedFields))
             {
                 $arrItem[$k] = $v;
+            }
+
+            $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
+            if ($objOpenCageGeo !== null)
+            {
+                if (strlen($this->objFamulaturAngebot->anform_strasse) && strlen($this->objFamulaturAngebot->anform_plz) && strlen($this->objFamulaturAngebot->anform_stadt))
+                {
+                    $strAddress = sprintf('%s,%s %s, Deutschland', $this->objFamulaturAngebot->anform_strasse, $this->objFamulaturAngebot->anform_plz, $this->objFamulaturAngebot->anform_stadt);
+
+                    $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
+                    if ($arrCoord !== null)
+                    {
+                        $this->Template->hasGeo = true;
+                        $this->Template->lat = $arrCoord['lat'];
+                        $this->Template->lng = $arrCoord['lng'];
+                    }
+                }
             }
         }
         $this->Template->item = $arrItem;

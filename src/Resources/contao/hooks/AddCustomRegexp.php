@@ -27,11 +27,11 @@ class AddCustomRegexp
      * @param Widget $objWidget
      * @return bool
      */
-    public function isValidGermanPostal($strRegexp, $varValue, Widget $objWidget)
+    public function isValidGermanPostalCode($strRegexp, $varValue, Widget $objWidget)
     {
         if ($strRegexp === 'germanpostal')
         {
-            if (!FamulaturHelper::isValidGermanPostal($varValue))
+            if (!FamulaturHelper::isValidGermanPostalCode($varValue))
             {
                 $objWidget->addError(sprintf($GLOBALS['TL_LANG']['ERR']['invalidPostalCode'], $objWidget->label));
                 return true;

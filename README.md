@@ -32,6 +32,10 @@ Das Plugin installiert zusätzlich die Erweiterungen:
 In den Backend Einstellungen müssen die Datenbankverbindungsoptionen gesetzt werden.
 Datenbankuser, Passwort, Port, Datenbankname
 
+### Opencage Geocoder Einstellungen
+In den Backend Einstellungen muss der OpenCage API Key gesetzt werden, damit die Open Street Map angezeigt werden kann.
+Der API key ist kostenfrei und ist hier erhältlich: https://opencagedata.com/users/sign_up
+
 ### Seiten/Frontend-Module anlegen
 Es müssen 4 Seiten angelegt werden:
 - Famulatur-Angebote (Reader)
