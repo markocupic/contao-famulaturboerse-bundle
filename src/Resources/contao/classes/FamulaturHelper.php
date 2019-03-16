@@ -104,6 +104,7 @@ class FamulaturHelper
      * @see http://opengeodb.org/wiki/OpenGeoDB_-_Umkreissuche
      * @see Download http://www.fa-technik.adfc.de/code/opengeodb/
      * @see http://www.lichtblau-it.de/downloads
+     * @throws \Exception
      */
     public static function generateZipcodeTable()
     {
@@ -114,7 +115,21 @@ class FamulaturHelper
             'dbPass'     => Config::get('openGeoDbPassword'),
             'dbDatabase' => Config::get('openGeoDbDatabase')
         );
+        if (Database::getInstance($arrConfig)->tableExists('zip_coordinates'))
+        {
+            return;
+        }
 
+        // Check if database exists
+        foreach (['zipcode', 'city'] as $strTable)
+        {
+            if (!Database::getInstance($arrConfig)->tableExists($strTable))
+            {
+                throw new \Exception(sprintf('Could not find database table %s.%s. Please check if the database and the table exists.', $strTable, Config::get('openGeoDbDatabase')));
+            }
+        }
+
+        // Create table zip_coordinates
         $createTableSQL = 'CREATE TABLE zip_coordinates (
             zc_id INT NOT NULL auto_increment PRIMARY KEY,
             zc_loc_id INT NOT NULL ,
@@ -124,6 +139,8 @@ class FamulaturHelper
             zc_lon DOUBLE NOT NULL)';
         Database::getInstance($arrConfig)->prepare($createTableSQL)->execute();
 
+        // Insert zipcode.city_id into zip_coordinates.zc_loc_id
+        // Insert zipcode.zipcode into zip_coordinates.zc_zip
         $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
         while ($objDb->next())
         {
@@ -134,6 +151,9 @@ class FamulaturHelper
             Database::getInstance($arrConfig)->prepare('INSERT INTO zip_coordinates %s')->set($set)->execute();
         }
 
+        // Insert city.name into zip_coordinates.zc_location_name
+        // Insert city.lat into zip_coordinates.zc_lat
+        // Insert city.lng into zip_coordinates.zc_lng
         $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->execute();
         while ($objDb->next())
         {
@@ -150,6 +170,7 @@ class FamulaturHelper
 
     /**
      * @return array
+     * @throws \Exception
      */
     public static function getValidZipcodesFromOpenGeo()
     {
@@ -163,13 +184,20 @@ class FamulaturHelper
 
         $arrZip = array();
 
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
-        while ($objDb->next())
+        if (Database::getInstance($arrConfig)->tableExists('zipcode'))
         {
-            $arrZip[] = $objDb->zipcode;
-        }
+            $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
+            while ($objDb->next())
+            {
+                $arrZip[] = $objDb->zipcode;
+            }
 
-        return $arrZip;
+            return $arrZip;
+        }
+        else
+        {
+            throw new \Exception(sprintf('Could not find database table %s.zipcode. Please check if the database and the table exists.', Config::get('openGeoDbDatabase')));
+        }
     }
 
     /**
