@@ -29,7 +29,7 @@ class InitializeSystem
     public function migrateFromEfg()
     {
         // !!!!!!!First manually import tl_formdata and tl_formdata_details with phpmyadmin
-        if (TL_MODE === 'BE' && Database::getInstance()->tableExists('tl_formdata') && Database::getInstance()->tableExists('tl_formdata_details'))
+        if (TL_MODE === 'BE' && Database::getInstance()->tableExists('tl_famulatur_angebot') && Database::getInstance()->tableExists('tl_formdata') && Database::getInstance()->tableExists('tl_formdata_details'))
         {
             $arrFields = array();
             $arrFieldList = Database::getInstance()->listFields('tl_famulatur_angebot');
@@ -144,7 +144,7 @@ class InitializeSystem
      */
     public function updateLatAndLng()
     {
-        if (TL_MODE == 'BE')
+        if (TL_MODE == 'BE' && Database::getInstance()->tableExists('tl_famulatur_angebot'))
         {
             // Remove lat & lng
             //Database::getInstance()->prepare('UPDATE tl_famulatur_angebot %s')->limit(200)->set(['anform_lat'=>'', 'anform_lng' => ''])->execute();
