@@ -80,6 +80,14 @@ class ModuleAngebotList extends FamulaturModule
         // Build query
         $arrCol = array('id>?');
         $arrVal = array(0);
+
+        // Show featured only
+        if ($this->showFeaturedOnly)
+        {
+            $arrCol[] = 'tl_famulatur_angebot.featured=?';
+            $arrVal[] = '1';
+        }
+
         foreach ($this->arrFilterFields as $strFieldname)
         {
             if (strlen(Input::get($strFieldname)))
@@ -202,9 +210,9 @@ class ModuleAngebotList extends FamulaturModule
             'label'     => $GLOBALS['TL_LANG']['MISC']['anform_filter_umkreis'],
             'inputType' => 'select',
             'options'   => array(
-                10    => '10 km',
-                25    => '25 km',
-                50    => '50 km',
+                10 => '10 km',
+                25 => '25 km',
+                50 => '50 km',
                 //100   => '100 km',
                 //1000  => '1000 km'
             ),
