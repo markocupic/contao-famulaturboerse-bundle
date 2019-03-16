@@ -13,7 +13,7 @@ namespace Markocupic\Famulatur\Hooks;
 use Contao\Config;
 use Contao\Database;
 use Contao\System;
-use Markocupic\Famulatur\Classes\OpenCageGeoCode;
+use Markocupic\Famulatur\Classes\OpenStreetMapGeoCode;
 use NotificationCenter\Model\Notification;
 
 /**
@@ -146,13 +146,16 @@ class InitializeSystem
     {
         if (TL_MODE == 'BE')
         {
+            // Remove lat & lng
+            //Database::getInstance()->prepare('UPDATE tl_famulatur_angebot %s')->limit(200)->set(['anform_lat'=>'', 'anform_lng' => ''])->execute();
+
             $objDatabase = Database::getInstance()->prepare('SELECT * FROM tl_famulatur_angebot WHERE anform_lat=? AND anform_lng=?')->limit(200)->execute('', '');
             while ($objDatabase->next())
             {
                 if ($objDatabase->anform_strasse !== '' && $objDatabase->anform_plz !== '' && $objDatabase->anform_stadt !== '')
                 {
                     $strAddress = sprintf('%s,%s %s, Deutschland', $objDatabase->anform_strasse, $objDatabase->anform_plz, $objDatabase->anform_stadt);
-                    $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
+                    $objOpenCageGeo = new OpenStreetMapGeoCode();
                     if ($objOpenCageGeo !== null)
                     {
                         $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');

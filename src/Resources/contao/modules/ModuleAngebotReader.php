@@ -14,7 +14,7 @@ use Contao\Config;
 use Contao\Controller;
 use Contao\Input;
 use Contao\StringUtil;
-use Markocupic\Famulatur\Classes\OpenCageGeoCode;
+use Markocupic\Famulatur\Classes\OpenStreetMapGeoCode;
 use Patchwork\Utf8;
 use Markocupic\Famulatur\Classes\FamulaturModule;
 use Contao\BackendTemplate;

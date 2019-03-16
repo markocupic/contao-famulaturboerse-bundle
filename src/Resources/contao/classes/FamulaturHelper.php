@@ -202,7 +202,7 @@ class FamulaturHelper
             if ($objFamulaturAngebot->anform_strasse !== '' && $objFamulaturAngebot->anform_plz !== '' && $objFamulaturAngebot->anform_stadt !== '')
             {
                 $strAddress = sprintf('%s,%s %s, Deutschland', $objFamulaturAngebot->anform_strasse, $objFamulaturAngebot->anform_plz, $objFamulaturAngebot->anform_stadt);
-                $objOpenCageGeo = new OpenCageGeoCode(Config::get('openCageApiKey'));
+                $objOpenCageGeo = new OpenStreetMapGeoCode();
                 if ($objOpenCageGeo !== null)
                 {
                     $arrCoord = $objOpenCageGeo->getCoordsFromAddress($strAddress, 'de');
