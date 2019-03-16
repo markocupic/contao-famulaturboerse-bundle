@@ -220,11 +220,11 @@ class ModuleAngebotForm extends FamulaturModule
 
                 $this->objFamulaturAngebot->fd_member_group = $this->objMember->groups;
 
-                // Update lat and lng
-                FamulaturHelper::updateLatAndLng($this->objFamulaturAngebot);
-
                 // Save model
                 $this->objFamulaturAngebot->save();
+
+                // Update lat and lng !!! Place this call after $this->objFamulaturAngebot->save()
+                FamulaturHelper::updateLatAndLng($this->objFamulaturAngebot->id);
 
                 // Call hooks
                 foreach ($GLOBALS['TL_HOOKS']['onUpdateFamulaturAngebot'] as $callback)

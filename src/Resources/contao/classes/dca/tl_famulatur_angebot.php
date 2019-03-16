@@ -36,7 +36,7 @@ class tl_famulatur_angebot extends Backend
             $objFamulaturAngebot = \Contao\FamulaturAngebotModel::findByPk($dc->id);
             if ($objFamulaturAngebot !== null)
             {
-                \Markocupic\Famulatur\Classes\FamulaturHelper::updateLatAndLng($objFamulaturAngebot);
+                \Markocupic\Famulatur\Classes\FamulaturHelper::updateLatAndLng($dc->id);
             }
         }
     }
