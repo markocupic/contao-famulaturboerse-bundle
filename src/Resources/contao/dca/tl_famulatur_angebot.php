@@ -134,6 +134,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'label'     => &$GLOBALS['TL_LANG']['tl_famulatur_angebot']['date'],
             'exclude'   => true,
             'inputType' => 'text',
+            'default'   => time(),
             'filter'    => false,
             'sorting'   => true,
             'search'    => false,

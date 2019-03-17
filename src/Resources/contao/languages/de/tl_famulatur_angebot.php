@@ -12,6 +12,9 @@
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['famulatur_legend'] = 'Famulatur-Angaben';
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['geocode_legend'] = 'Geocode-Einstellungen';
 
+// Global operations
+$GLOBALS['TL_LANG']['tl_famulatur_angebot']['new'] = array('Neues Famulatur-Angebot', 'Ein neues Famulatur-Angebot anlegen.');
+
 // Fields
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['featured'] = array('Hervorheben', 'Geben Sie den Wert für "Hervorheben" ein.');
 $GLOBALS['TL_LANG']['tl_famulatur_angebot']['tstamp'] = array('Änderungsdatum', 'Geben Sie den Wert für "Änderungsdatum" ein.');

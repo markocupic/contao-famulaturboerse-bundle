@@ -17,6 +17,7 @@ use Contao\Input;
 use Contao\PageModel;
 use Contao\StringUtil;
 use Contao\System;
+use Contao\Versions;
 use Haste\Form\Form;
 use Contao\FamulaturAngebotModel;
 use Markocupic\Famulatur\Classes\FamulaturHelper;
@@ -188,6 +189,8 @@ class ModuleAngebotForm extends FamulaturModule
                     if ($objInsertStmt->affectedRows)
                     {
                         $insertId = $objInsertStmt->insertId;
+                        // System log
+                        System::log(sprintf('A new entry "tl_famulatur_angebot.id=%s" has been created.', $insertId), __METHOD__, TL_GENERAL);
 
                         if (($objFamulaturAngebot = FamulaturAngebotModel::findByPk($insertId)) !== null)
                         {
@@ -210,6 +213,10 @@ class ModuleAngebotForm extends FamulaturModule
                     }
                 }
 
+                // Create new version
+                $objVersions = new Versions('tl_famulatur_angebot', $this->objFamulaturAngebot->id);
+                $objVersions->initialize();
+
                 if ($this->objFamulaturAngebot->alias == '')
                 {
                     $this->objFamulaturAngebot->alias = FamulaturHelper::generateAlias('', $this->objFamulaturAngebot->id);
@@ -223,6 +230,9 @@ class ModuleAngebotForm extends FamulaturModule
                 // Save model
                 $this->objFamulaturAngebot->save();
 
+                // System log
+                System::log(sprintf('UPDATE tl_famulatur_angebot where id=%s.', $this->objFamulaturAngebot->id), __METHOD__, TL_GENERAL);
+
                 // Update lat and lng !!! Place this call after $this->objFamulaturAngebot->save()
                 FamulaturHelper::updateLatAndLng($this->objFamulaturAngebot->id);
 
@@ -231,6 +241,9 @@ class ModuleAngebotForm extends FamulaturModule
                 {
                     System::importStatic($callback[0])->{$callback[1]}($this->objFamulaturAngebot, $this->objMember, $objForm, $this);
                 }
+
+                // Create version
+                $objVersions->create();
 
                 // Set Message
                 $errMsg = $GLOBALS['TL_LANG']['MISC']['famulaturFormSent'];
@@ -241,6 +254,7 @@ class ModuleAngebotForm extends FamulaturModule
                 {
                     $this->jumpToOrReload($objPage->row());
                 }
+
                 $this->reload();
             }
         }
