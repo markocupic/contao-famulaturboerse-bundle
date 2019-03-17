@@ -74,8 +74,15 @@ class ModuleAngebotList extends FamulaturModule
     {
         // Generate filter form
         $this->generateFilterForm();
-
         $this->Template->form = $this->form;
+
+        // Reset form url
+        global $objPage;
+        $objPageModel = PageModel::findByPk($objPage->id);
+        if ($objPageModel !== null)
+        {
+            $this->Template->resetFormUrl = $objPageModel->getFrontendUrl();
+        }
 
         // Build query
         $arrCol = array('id>?');

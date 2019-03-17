@@ -56,6 +56,13 @@
             </div>
             <?php endif; ?>
 
+            <div data-input="reset">
+                <div class="widget-reset">
+                    <div class="widget widget-reset form-group">
+                        <a href="<?= $this->resetFormUrl ?>" class="btn" title="Filter zurücksetzen">Filter zurücksetzen</a>
+                    </div>
+                </div>
+            </div>
 
         </div>
     </form>
@@ -66,43 +73,46 @@
 <div class="angebotListe block">
     <?php if($this->countRows): ?>
     <p><?= $this->countRows ?> Einträge gefunden.</p>
-    <table class="table">
-        <thead>
-        <tr class="row-item">
-            <th class="angebot-plz"><a href="<?= $this->urlSortByPlz ?>" title="Sortiere nach PLZ">PLZ</a></th>
-            <th class="angebot-stadt"><a href="<?= $this->urlSortByStadt ?>" title="Sortiere nach PLZ">STADT</a></th>
-            <th class="angebot-kurzbeschreibung"><a href="<?= $this->urlSortByKurzbeschreibung ?>" title="Sortiere nach PLZ">KURZBESCHREIBUNG</a></th>
-            <th class="angebot-fachrichtung"><a href="<?= $this->urlSortByFachrichtung ?>" title="Sortiere nach PLZ">FACHRICHTUNG</a></th>
-            <th class="angebot-reader-button"></th>
-        </tr>
-        </thead>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+            <tr class="row-item">
+                <th class="angebot-plz"><a href="<?= $this->urlSortByPlz ?>" title="Sortiere nach PLZ">PLZ</a></th>
+                <th class="angebot-stadt"><a href="<?= $this->urlSortByStadt ?>" title="Sortiere nach PLZ">STADT</a></th>
+                <th class="angebot-kurzbeschreibung"><a href="<?= $this->urlSortByKurzbeschreibung ?>" title="Sortiere nach PLZ">KURZBESCHREIBUNG</a></th>
+                <th class="angebot-fachrichtung"><a href="<?= $this->urlSortByFachrichtung ?>" title="Sortiere nach PLZ">FACHRICHTUNG</a></th>
+                <th class="angebot-reader-button"></th>
+            </tr>
+            </thead>
 
-        <tbody>
-        <?php foreach($this->rows as $row): ?>
-        <tr class="row-item">
-            <td class="angebot-plz">
-                <?php if($row['invalidZip']): ?>***<br><?php endif; ?>
-                <?= $row['anform_plz'] ?>
-            </td>
-            </td>
-            <td class="angebot-stadt">
-                <?= $row['anform_stadt'] ?>
-            </td>
-            <td class="angebot-kurzbeschreibung">
-                <?= $row['anform_kurzbeschreibung'] ?>
-
-            <td class="angebot-fachrichtung">
-                <?= $row['anform_richtung'] ?>
-            </td>
-            <td class="angebot-reader-button">
-                <?php if($row['readerHref']): ?>
-                <a href="<?= $row['readerHref'] ?>" class="btn reader-item-href" title="Details">Details</a>
-                <?php endif; ?>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-        </tbody>
-    </table>
+            <tbody>
+            <?php foreach($this->rows as $row): ?>
+            <tr class="row-item">
+                <td class="angebot-plz">
+                    <?php if($row['invalidZip']): ?>***<br><?php endif; ?>
+                    <?= $row['anform_plz'] ?>
+                </td>
+                </td>
+                <td class="angebot-stadt">
+                    <?= $row['anform_stadt'] ?>
+                </td>
+                <td class="angebot-kurzbeschreibung">
+                    <?php if($row['readerHref']): ?><a href="<?= $row['readerHref'] ?>" title="Details"><?php endif; ?>
+                        <?= $row['anform_kurzbeschreibung'] ?>
+                    <?php if($row['readerHref']): ?></a><?php endif; ?>
+                <td class="angebot-fachrichtung">
+                    <?= $row['anform_richtung'] ?>
+                </td>
+                <td class="angebot-reader-button">
+                    <?php if($row['readerHref']): ?>
+                    <a href="<?= $row['readerHref'] ?>" class="btn reader-item-href" title="Details">Details</a>
+                    <?php endif; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
     <p>*** Ungültige Postleitzahl</p>
     <?php else: ?>
     <p>Keine Einträge gefunden.</p>
