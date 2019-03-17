@@ -22,6 +22,80 @@ use NotificationCenter\Model\Notification;
  */
 class InitializeSystem
 {
+    /**
+     * @see http://opengeodb.org/wiki/OpenGeoDB_-_Umkreissuche
+     * @see Download http://www.fa-technik.adfc.de/code/opengeodb/
+     * @see http://www.lichtblau-it.de/downloads
+     * @throws \Exception
+     */
+    public static function generateZipcodeTable()
+    {
+        $arrConfig = array(
+            'dbHost'     => Config::get('openGeoDbHost'),
+            'dbPort'     => Config::get('openGeoDbPort'),
+            'dbUser'     => Config::get('openGeoDbUser'),
+            'dbPass'     => Config::get('openGeoDbPassword'),
+            'dbDatabase' => Config::get('openGeoDbDatabase')
+        );
+        if (Database::getInstance($arrConfig)->tableExists('zip_coordinates'))
+        {
+            return;
+        }
+
+        // Return if table is not empty
+        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->limit(1)->execute();
+        if ($objDb->numRows)
+        {
+            return;
+        }
+
+        // Check if database exists
+        foreach (['zipcode', 'city'] as $strTable)
+        {
+            if (!Database::getInstance($arrConfig)->tableExists($strTable))
+            {
+                throw new \Exception(sprintf('Could not find database table %s.%s. Please check if the database and the table exists.', $strTable, Config::get('openGeoDbDatabase')));
+            }
+        }
+
+        // Create table zip_coordinates
+        $createTableSQL = 'CREATE TABLE zip_coordinates (
+            zc_id INT NOT NULL auto_increment PRIMARY KEY,
+            zc_loc_id INT NOT NULL ,
+            zc_zip VARCHAR( 10 ) NOT NULL ,
+            zc_location_name VARCHAR( 255 ) NOT NULL ,
+            zc_lat DOUBLE NOT NULL ,
+            zc_lon DOUBLE NOT NULL)';
+        Database::getInstance($arrConfig)->prepare($createTableSQL)->execute();
+
+        // Insert zipcode.city_id into zip_coordinates.zc_loc_id
+        // Insert zipcode.zipcode into zip_coordinates.zc_zip
+        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
+        while ($objDb->next())
+        {
+            $set = array(
+                'zc_loc_id' => $objDb->city_id,
+                'zc_zip'    => $objDb->zipcode,
+            );
+            Database::getInstance($arrConfig)->prepare('INSERT INTO zip_coordinates %s')->set($set)->execute();
+        }
+
+        // Insert city.name into zip_coordinates.zc_location_name
+        // Insert city.lat into zip_coordinates.zc_lat
+        // Insert city.lng into zip_coordinates.zc_lng
+        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->execute();
+        while ($objDb->next())
+        {
+            $objDb2 = Database::getInstance($arrConfig)->prepare('SELECT * FROM city WHERE id=?')->execute($objDb->zc_loc_id);
+            $set = array(
+                'zc_location_name' => $objDb2->name,
+                'zc_lat'           => $objDb2->lat,
+                'zc_lon'           => $objDb2->lng
+            );
+            Database::getInstance($arrConfig)->prepare('UPDATE zip_coordinates %s WHERE zc_id=?')->set($set)->execute($objDb->zc_id);
+        }
+        return;
+    }
 
     /**
      * Migrate data from efg tables tl_formdate and tl_formdata_details
