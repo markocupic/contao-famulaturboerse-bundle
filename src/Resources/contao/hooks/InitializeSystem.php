@@ -51,42 +51,54 @@ class InitializeSystem
                 throw new \Exception(sprintf('Could not find database table %s.%s. Please check if the database and the table exists.', $strTable, Config::get('openGeoDbDatabase')));
             }
         }
+        try
+        {
+            // Begin transaction
+            Database::getInstance()->beginTransaction();
 
-        // Create table zip_coordinates
-        $createTableSQL = 'CREATE TABLE zip_coordinates (
+            // Create table zip_coordinates
+            $createTableSQL = 'CREATE TABLE zip_coordinates (
             zc_id INT NOT NULL auto_increment PRIMARY KEY,
             zc_loc_id INT NOT NULL ,
             zc_zip VARCHAR( 10 ) NOT NULL ,
             zc_location_name VARCHAR( 255 ) NOT NULL ,
             zc_lat DOUBLE NOT NULL ,
             zc_lon DOUBLE NOT NULL)';
-        Database::getInstance($arrConfig)->prepare($createTableSQL)->execute();
+            Database::getInstance($arrConfig)->prepare($createTableSQL)->execute();
 
-        // Insert zipcode.city_id into zip_coordinates.zc_loc_id
-        // Insert zipcode.zipcode into zip_coordinates.zc_zip
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
-        while ($objDb->next())
-        {
-            $set = array(
-                'zc_loc_id' => $objDb->city_id,
-                'zc_zip'    => $objDb->zipcode,
-            );
-            Database::getInstance($arrConfig)->prepare('INSERT INTO zip_coordinates %s')->set($set)->execute();
-        }
+            // Insert zipcode.city_id into zip_coordinates.zc_loc_id
+            // Insert zipcode.zipcode into zip_coordinates.zc_zip
+            $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zipcode')->execute();
+            while ($objDb->next())
+            {
+                $set = array(
+                    'zc_loc_id' => $objDb->city_id,
+                    'zc_zip'    => $objDb->zipcode,
+                );
+                Database::getInstance($arrConfig)->prepare('INSERT INTO zip_coordinates %s')->set($set)->execute();
+            }
 
-        // Insert city.name into zip_coordinates.zc_location_name
-        // Insert city.lat into zip_coordinates.zc_lat
-        // Insert city.lng into zip_coordinates.zc_lng
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->execute();
-        while ($objDb->next())
+            // Insert city.name into zip_coordinates.zc_location_name
+            // Insert city.lat into zip_coordinates.zc_lat
+            // Insert city.lng into zip_coordinates.zc_lng
+            $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->execute();
+            while ($objDb->next())
+            {
+                $objDb2 = Database::getInstance($arrConfig)->prepare('SELECT * FROM city WHERE id=?')->execute($objDb->zc_loc_id);
+                $set = array(
+                    'zc_location_name' => $objDb2->name,
+                    'zc_lat'           => $objDb2->lat,
+                    'zc_lon'           => $objDb2->lng
+                );
+                Database::getInstance($arrConfig)->prepare('UPDATE zip_coordinates %s WHERE zc_id=?')->set($set)->execute($objDb->zc_id);
+            }
+
+            // Commit transaction
+            Database::getInstance()->commitTransaction();
+        } catch (Exception $e)
         {
-            $objDb2 = Database::getInstance($arrConfig)->prepare('SELECT * FROM city WHERE id=?')->execute($objDb->zc_loc_id);
-            $set = array(
-                'zc_location_name' => $objDb2->name,
-                'zc_lat'           => $objDb2->lat,
-                'zc_lon'           => $objDb2->lng
-            );
-            Database::getInstance($arrConfig)->prepare('UPDATE zip_coordinates %s WHERE zc_id=?')->set($set)->execute($objDb->zc_id);
+            echo 'An exception has been thrown. We must rollback the transaction.';
+            Database::getInstance()->rollbackTransaction();
         }
         return;
     }
