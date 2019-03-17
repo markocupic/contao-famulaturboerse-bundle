@@ -15,6 +15,7 @@ use Contao\Controller;
 use Contao\Environment;
 use Contao\Input;
 use Contao\PageModel;
+use Contao\Pagination;
 use Haste\Form\Form;
 use Contao\FamulaturAngebotModel;
 use Haste\Util\Url;
@@ -23,6 +24,7 @@ use Markocupic\Famulatur\Classes\FamulaturModule;
 use Patchwork\Utf8;
 use Contao\BackendTemplate;
 use Contao\Database;
+use Contao\CoreBundle\Exception\PageNotFoundException;
 
 /**
  * Class ModuleAngebotList
@@ -177,10 +179,33 @@ class ModuleAngebotList extends FamulaturModule
 
                 $arrRows[] = $arrRow;
             }
-
-            if (count($arrRows) > 0)
+            $total = count($arrRows);
+            if ($total > 0)
             {
-                $this->Template->countRows = count($arrRows);
+                $this->Template->countRows = $total;
+            }
+
+            // Paginate the result
+            if ($this->perPage > 0)
+            {
+                // Get the current page
+                $id = 'page_g' . $this->id;
+                $page = Input::get($id) ?? 1;
+
+                // Do not index or cache the page if the page number is outside the range
+                if ($page < 1 || $page > max(ceil($total / $this->perPage), 1))
+                {
+                    throw new PageNotFoundException('Page not found: ' . Environment::get('uri'));
+                }
+
+                // Set limit and offset
+                $offset = ($page - 1) * $this->perPage;
+                $limit = min($this->perPage + $offset, $total);
+
+                $objPagination = new Pagination($total, $this->perPage, Config::get('maxPaginationLinks'), $id);
+                $this->Template->pagination = $objPagination->generate("\n  ");
+
+                $arrRows = array_slice($arrRows, $offset, $limit);
             }
         }
 
@@ -217,11 +242,11 @@ class ModuleAngebotList extends FamulaturModule
             'label'     => $GLOBALS['TL_LANG']['MISC']['anform_filter_umkreis'],
             'inputType' => 'select',
             'options'   => array(
-                10 => '10 km',
-                25 => '25 km',
-                50 => '50 km',
-                //100   => '100 km',
-                //1000  => '1000 km'
+                10  => '10 km',
+                25  => '25 km',
+                50  => '50 km',
+                75  => '75 km',
+                100 => '100 km'
             ),
             'eval'      => array('includeBlankOption' => true, 'blankOptionLabel' => 'keine Umkreissuche', 'mandatory' => false)
         ));

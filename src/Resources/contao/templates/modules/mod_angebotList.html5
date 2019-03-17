@@ -117,6 +117,8 @@
     <?php else: ?>
     <p>Keine Einträge gefunden.</p>
     <?php endif; ?>
+
+    <?= $this->pagination ?>
 </div>
 
 

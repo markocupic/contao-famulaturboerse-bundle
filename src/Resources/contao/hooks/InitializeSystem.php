@@ -42,8 +42,6 @@ class InitializeSystem
             return;
         }
 
-
-
         // Check if database exists
         foreach (['zipcode', 'city'] as $strTable)
         {

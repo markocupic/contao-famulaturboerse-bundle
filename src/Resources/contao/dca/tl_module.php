@@ -14,7 +14,7 @@ $GLOBALS['TL_DCA']['tl_module']['palettes']['__selector__'][] = 'notifyOnFamulat
 // Palettes
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotForm'] = '{title_legend},name,headline,type;{form_legend},autoPublishOnInsert,formFields;{redirect_legend},jumpTo;{notification_legend},notifyOnFamulaturAngebotInserts;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotDashboard'] = '{title_legend},name,headline,type;{redirect_legend},formAngebotJumpTo,readerJumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['angebotList'] = '{title_legend},name,headline,type;{listing_legend},showFeaturedOnly;{redirect_legend},readerJumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['angebotList'] = '{title_legend},name,headline,type;{listing_legend},showFeaturedOnly;{pagination_legend},perPage;{redirect_legend},readerJumpTo;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['angebotReader'] = '{title_legend},name,headline,type;{field_legend},formFields;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID';
 
 // Subpalettes
