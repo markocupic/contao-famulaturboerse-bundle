@@ -308,6 +308,15 @@ class ModuleAngebotList extends FamulaturModule
         $sql = 'SELECT ' .
             'dest.zc_zip, ' .
             'dest.zc_location_name, ' .
+            'ACOS( SIN(RADIANS(src.zc_lat)) * SIN(RADIANS(dest.zc_lat)) + COS(RADIANS(src.zc_lat)) * COS(RADIANS(dest.zc_lat)) * COS(RADIANS(src.zc_lon) - RADIANS(dest.zc_lon)) ) * 6380 AS distance ' .
+            'FROM zip_coordinates dest CROSS JOIN zip_coordinates src ' .
+            'WHERE src.zc_id = (SELECT zc_id FROM zip_coordinates WHERE zc_zip LIKE "%' . urldecode($strZip) . '" ' .
+            'LIMIT 0,1) ' .
+            'HAVING distance <= ' . urldecode($intUmkreis) . ' ORDER BY distance';
+
+        $sql2 = 'SELECT ' .
+            'dest.zc_zip, ' .
+            'dest.zc_location_name, ' .
             'ACOS( ' .
             '     SIN(RADIANS(src.zc_lat)) * SIN(RADIANS(dest.zc_lat)) ' .
             '     + COS(RADIANS(src.zc_lat)) * COS(RADIANS(dest.zc_lat)) ' .

@@ -37,17 +37,12 @@ class InitializeSystem
             'dbPass'     => Config::get('openGeoDbPassword'),
             'dbDatabase' => Config::get('openGeoDbDatabase')
         );
-        if (Database::getInstance($arrConfig)->tableExists('zip_coordinates'))
+        if (Database::getInstance($arrConfig)->tableExists('zipcode_coordinates'))
         {
             return;
         }
 
-        // Return if table is not empty
-        $objDb = Database::getInstance($arrConfig)->prepare('SELECT * FROM zip_coordinates')->limit(1)->execute();
-        if ($objDb->numRows)
-        {
-            return;
-        }
+
 
         // Check if database exists
         foreach (['zipcode', 'city'] as $strTable)
