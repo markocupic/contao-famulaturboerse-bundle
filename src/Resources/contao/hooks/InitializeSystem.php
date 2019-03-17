@@ -23,6 +23,7 @@ use NotificationCenter\Model\Notification;
 class InitializeSystem
 {
     /**
+     * @see https://github.com/ratopi/opengeodb/wiki/OpenGeoDB_-_Umkreissuche
      * @see http://opengeodb.org/wiki/OpenGeoDB_-_Umkreissuche
      * @see Download http://www.fa-technik.adfc.de/code/opengeodb/
      * @see http://www.lichtblau-it.de/downloads
@@ -37,7 +38,7 @@ class InitializeSystem
             'dbPass'     => Config::get('openGeoDbPassword'),
             'dbDatabase' => Config::get('openGeoDbDatabase')
         );
-        if (Database::getInstance($arrConfig)->tableExists('zipcode_coordinates'))
+        if (Database::getInstance($arrConfig)->tableExists('zip_coordinates'))
         {
             return;
         }

@@ -11,6 +11,7 @@
 // Legends
 $GLOBALS['TL_LANG']['tl_module']['form_legend'] = 'Formular-Einstellungen';
 $GLOBALS['TL_LANG']['tl_module']['listing_legend'] = 'Auflistungs-Einstellungen';
+$GLOBALS['TL_LANG']['tl_module']['pagination_legend'] = 'Paginierungs-Einstellungen';
 
 // Fields
 $GLOBALS['TL_LANG']['tl_module']['formAngebotJumpTo'] = array('Seite mit dem Angebotsformular-Modul', 'Wählen Sie die Seite mit dem Angebotsformular-Modul aus.');

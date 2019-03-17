@@ -324,6 +324,7 @@ class ModuleAngebotList extends FamulaturModule
     }
 
     /**
+     * @see https://github.com/ratopi/opengeodb/wiki/OpenGeoDB_-_Umkreissuche
      * @param $intUmkreis
      * @param $strZip
      * @return array
