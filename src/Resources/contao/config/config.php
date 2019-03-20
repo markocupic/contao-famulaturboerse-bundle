@@ -32,6 +32,10 @@ array_insert($GLOBALS['FE_MOD'], 3, array
     )
 ));
 
+
+$GLOBALS['TL_HOOKS']['initializeSystem'][] = array('Markocupic\Famulatur\Hooks\FTP2', 'loadDataFromFtp');
+
+
 /**
  * Register HOOKS
  */

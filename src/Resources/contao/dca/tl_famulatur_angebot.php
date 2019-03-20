@@ -178,7 +178,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => false, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'extnd', 'tl_class' => 'clr long'),
+            'eval'      => array('mandatory' => false, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'clr long'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'fd_member'               => array(
@@ -226,7 +226,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'alnum', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_zusatztext'       => array(
@@ -236,7 +236,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'extnd', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_richtung'         => array(
@@ -257,7 +257,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'extnd', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_angebot'          => array(
@@ -267,7 +267,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'extnd', 'tl_class' => 'clr long'),
+            'eval'      => array('mandatory' => true, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'clr long'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_erwartung'        => array(
@@ -277,7 +277,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => false, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'extnd', 'tl_class' => 'clr long'),
+            'eval'      => array('mandatory' => false, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'clr long'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_anforderungen'    => array(
@@ -287,7 +287,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'alnum', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_kvbezirk'         => array(
@@ -341,7 +341,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => false,
-            'eval'      => array('mandatory' => false, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'extnd', 'tl_class' => 'clr long'),
+            'eval'      => array('mandatory' => false, 'rows' => 6, 'cols' => 40, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'clr long'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_praxis'           => array(
@@ -351,7 +351,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => false,
-            'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'alnum', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => false, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_ansprechpartner'  => array(
@@ -362,7 +362,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'sorting'   => false,
             'search'    => false,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'alnum', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_strasse'          => array(
@@ -372,7 +372,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => false,
             'sorting'   => false,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'alnum', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_plz'              => array(
@@ -392,7 +392,7 @@ $GLOBALS['TL_DCA']['tl_famulatur_angebot'] = array(
             'filter'    => true,
             'sorting'   => true,
             'search'    => true,
-            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'rgxp' => 'alnum', 'tl_class' => 'w50'),
+            'eval'      => array('mandatory' => true, 'allowHtml' => false, 'decodeEntities' => true, 'tl_class' => 'w50'),
             'sql'       => "varchar(255) NOT NULL default ''",
         ),
         'anform_bundesland'       => array(

@@ -215,6 +215,7 @@ class ModuleAngebotForm extends FamulaturModule
 
                 // Create new version
                 $objVersions = new Versions('tl_famulatur_angebot', $this->objFamulaturAngebot->id);
+                $objVersions->setUserId(0);
                 $objVersions->initialize();
 
                 if ($this->objFamulaturAngebot->alias == '')
