@@ -18,7 +18,10 @@
     <?php foreach($this->item as $k => $v): ?>
     <?php $i++ ?>
     <?php $rowClass = $i%2 != 0 ? 'odd' : 'even'; ?>
-    <?php if($v != ''): ?>
+    <?php if($k == 'anform_web'): ?>
+    <?php $v = sprintf('<a href="%s" target="_blank">%s</a>', $v, $v); ?>
+    <?php endif; ?>
+    <?php if($v !== ''): ?>
     <tr class="<?= $rowClass ?>">
         <td><?= $this->getLabel($k) ?></td>
         <td><?= nl2br($v) ?></td>
