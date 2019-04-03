@@ -58,7 +58,7 @@ class ModuleAngebotReader extends FamulaturModule
         if (!isset($_GET['items']) && Config::get('useAutoItem') && isset($_GET['auto_item']))
         {
             Input::setGet('items', Input::get('auto_item'));
-        }
+        } 
 
         // Get Famulatur Angebot Model from parent class
         if ($this->getFamulaturAngebotModel() === null)

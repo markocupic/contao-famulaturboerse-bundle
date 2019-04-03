@@ -73,7 +73,7 @@ class ModuleAngebotDashboard extends FamulaturModule
             // Redirect back
             global $objPage;
             $oPage = PageModel::findWithDetails($objPage->id);
-            $this->redirect($oPage->getAbsoluteUrl());
+            $this->redirect($oPage->getFrontendUrl());
         }
 
         // Allow module to logged in users only
@@ -109,7 +109,7 @@ class ModuleAngebotDashboard extends FamulaturModule
                     $objFormPage = PageModel::findWithDetails($this->formAngebotJumpTo);
                     if ($objFormPage !== null)
                     {
-                        $href = $objFormPage->getAbsoluteUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s');
+                        $href = ampersand($objFormPage->getFrontendUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s'));
                         $arrRow['editItemHref'] = sprintf($href, $arrRow['alias']);
                     }
                 }
@@ -119,7 +119,7 @@ class ModuleAngebotDashboard extends FamulaturModule
                     $objPageDelete = PageModel::findWithDetails($objPage->id);
                     if ($objPageDelete !== null)
                     {
-                        $href = $objPageDelete->getAbsoluteUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s') . '?action=delete';
+                        $href = ampersand($objPageDelete->getFrontendUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s') . '?action=delete');
                         $arrRow['deleteItemHref'] = sprintf($href, $arrRow['alias']);
                     }
                 }
@@ -129,8 +129,8 @@ class ModuleAngebotDashboard extends FamulaturModule
                     $objPageReader = PageModel::findWithDetails($this->readerJumpTo);
                     if ($objPageReader !== null)
                     {
-                        $href = $objPageReader->getAbsoluteUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s');
-                        $arrRow['readerItemHref'] = sprintf($href, $arrRow['alias']);
+                        $href = $objPageReader->getFrontendUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s');
+                        $arrRow['readerItemHref'] = ampersand(sprintf($href, $arrRow['alias']));
                     }
                 }
 
@@ -143,7 +143,7 @@ class ModuleAngebotDashboard extends FamulaturModule
                 $objFormPage = PageModel::findWithDetails($this->formAngebotJumpTo);
                 if ($objFormPage !== null)
                 {
-                    $this->Template->createNewHref = $objFormPage->getAbsoluteUrl();
+                    $this->Template->createNewHref = ampersand($objFormPage->getFrontendUrl());
                 }
             }
 

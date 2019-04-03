@@ -172,7 +172,7 @@ class ModuleAngebotList extends FamulaturModule
                     $objFormPage = PageModel::findWithDetails($this->readerJumpTo);
                     if ($objFormPage !== null)
                     {
-                        $href = $objFormPage->getAbsoluteUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s');
+                        $href = ampersand($objFormPage->getFrontendUrl(Config::get('useAutoItem') ? '/%s' : '/items/%s'));
                         $arrRow['readerHref'] = sprintf($href, $arrRow['alias']);
                     }
                 }
